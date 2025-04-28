@@ -1,0 +1,23 @@
+services:
+  app:
+    image: alstjr971/QRust:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # 필수! MySQL 루트 비밀번호
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+
+volumes:
+  db-data:
+
