@@ -1,0 +1,4 @@
+dependencies {
+    // WebFlux 외부 API 호출
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+}
