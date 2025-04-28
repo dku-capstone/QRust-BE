@@ -1,0 +1,41 @@
+name: PR-MERGE-CD-PIPELINE
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker Build
+        run: docker build -t ${{ secrets.DOCKERHUB_USER_NAME}}/QRust-image:latest .
+
+      - name: Docker Hub Login
+        run: |
+          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER_NAME }}" --password-stdin
+
+      - name: Docker Image Push
+        run: docker push ${{ secrets.DOCKERHUB_USER_NAME}}/QRust-image:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: SSH 연결 및 배포
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USER_NAME }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKERHUB_USER_NAME }}/qrust-image:latest
+            docker stop qrust-container || true
+            docker rm qrust-container || true
+            docker run -d --name qrust-container -p 8080:8080 ${{ secrets.DOCKERHUB_USER_NAME }}/qrust-image:latest
