@@ -1,54 +1,49 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.4.4'
-    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
-group = 'dku_capstone'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+bootJar {
+    enabled = false
 }
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    // starter
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-//    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
-    //database
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
-    runtimeOnly 'com.mysql:mysql-connector-j'
+subprojects {
+    group = "${group}"
+    version = "${version}"
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 
-    //swagger
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
 
-    //lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    apply from: "${rootDir}/gradle/db.gradle"
+    apply from: "${rootDir}/gradle/jwt.gradle"
+    apply from: "${rootDir}/gradle/lombok.gradle"
+    apply from: "${rootDir}/gradle/monitor.gradle"
+    apply from: "${rootDir}/gradle/spring.gradle"
+    apply from: "${rootDir}/gradle/swagger.gradle"
+    apply from: "${rootDir}/gradle/test.gradle"
+    apply from: "${rootDir}/gradle/webflux.gradle"
 
-    //querydsl
-    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
 
-    //test
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
-}
+    repositories {
+        mavenCentral()
+    }
 
-tasks.named('test') {
-    useJUnitPlatform()
+    test {
+        useJUnitPlatform()
+    }
 }

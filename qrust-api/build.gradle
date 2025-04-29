@@ -1,0 +1,12 @@
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = false
+}
+
+dependencies {
+    implementation project(':qrust-domain')
+    implementation project(':qrust-common')
+}

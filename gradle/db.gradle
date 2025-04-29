@@ -1,0 +1,11 @@
+dependencies {
+    // DB, JPA
+    runtimeOnly "com.mysql:mysql-connector-j:${mysqlConnectorVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+
+    // h2
+    testImplementation "com.h2database:h2"
+
+    // Redis
+    // implementation "org.springframework.boot:spring-boot-starter-data-redis"
+}

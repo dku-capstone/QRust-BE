@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKERHUB_USER_NAME}}/QRust-image:latest .
+        run: docker build -f qrust-api/Dockerfile -t ${{ secrets.DOCKERHUB_USER_NAME }}/QRust-image:latest .
 
       - name: Docker Hub Login
         run: |
