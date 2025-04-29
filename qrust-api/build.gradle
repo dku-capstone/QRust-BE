@@ -6,6 +6,7 @@ jar {
     enabled = false
 }
 
-dependencies{
+dependencies {
     implementation project(':qrust-domain')
+    implementation project(':qrust-common')
 }

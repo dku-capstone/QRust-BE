@@ -5,7 +5,7 @@ FROM gradle:8.5-jdk21 AS build
 ARG APP_DIR=/home/app
 
 # 소스 코드 복사
-COPY . ${APP_DIR}
+COPY .. ${APP_DIR}
 WORKDIR ${APP_DIR}
 
 # 빌드 실행

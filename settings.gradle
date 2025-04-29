@@ -2,4 +2,5 @@ rootProject.name = 'QRust'
 include 'qrust-api'
 include 'qrust-api'
 include 'qrust-domain'
+include 'qrust-common'
 
