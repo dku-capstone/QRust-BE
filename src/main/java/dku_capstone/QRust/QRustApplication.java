@@ -15,5 +15,4 @@ public class QRustApplication {
     public String home() {
         return "Hello, World!";
     }
-
 }

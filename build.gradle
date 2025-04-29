@@ -4,30 +4,46 @@ plugins {
     id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
-group = "${group}"
-version = "${version}"
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of("${javaVersion}")
-    }
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
+bootJar {
+    enabled = false
 }
 
 repositories {
     mavenCentral()
 }
 
-apply from: "gradle/db.gradle"
-apply from: "gradle/jwt.gradle"
-apply from: "gradle/lombok.gradle"
-apply from: "gradle/monitor.gradle"
-apply from: "gradle/spring.gradle"
-apply from: "gradle/swagger.gradle"
-apply from: "gradle/test.gradle"
-apply from: "gradle/webflux.gradle"
+
+subprojects {
+    group = "${group}"
+    version = "${version}"
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    apply from: "${rootDir}/gradle/db.gradle"
+    apply from: "${rootDir}/gradle/jwt.gradle"
+    apply from: "${rootDir}/gradle/lombok.gradle"
+    apply from: "${rootDir}/gradle/monitor.gradle"
+    apply from: "${rootDir}/gradle/spring.gradle"
+    apply from: "${rootDir}/gradle/swagger.gradle"
+    apply from: "${rootDir}/gradle/test.gradle"
+    apply from: "${rootDir}/gradle/webflux.gradle"
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
