@@ -1,6 +1,7 @@
 package com.qrust.user.domain.entity;
 
 import com.qrust.infrastructure.jpa.shared.BaseEntity;
+import com.qrust.user.domain.entity.vo.Provider;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
