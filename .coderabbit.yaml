@@ -5,6 +5,8 @@ reviews:
 
 review_status: true  # PR에 리뷰 상태 메시지 표시
 
+language: ko
+
 rules:
   - name: General code review
     description: AI-based general code feedback
