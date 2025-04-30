@@ -3,6 +3,7 @@ package com.qrust.qrcode.domain.entity;
 import com.qrust.infrastructure.jpa.shared.BaseEntity;
 import com.qrust.qrcode.domain.entity.vo.QrcodeData;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +30,8 @@ public class QrCode extends BaseEntity {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    private QrcodeData qrcodeData;
+    @Embedded
+    private QrcodeData qrCodeData;
 
     private boolean isEncrypted;
     private boolean isExpired;

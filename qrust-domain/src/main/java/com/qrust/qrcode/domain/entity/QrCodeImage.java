@@ -23,7 +23,7 @@ public class QrCodeImage extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "qr_code_id", nullable = false)
-    private QrCode QrCode;
+    private QrCode qrCode;
 
     private String imageUrl;
 
