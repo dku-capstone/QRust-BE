@@ -2,6 +2,7 @@ package com.qrust.user.domain.entity;
 
 import com.qrust.infrastructure.jpa.shared.BaseEntity;
 import com.qrust.user.domain.entity.vo.Gender;
+import com.qrust.user.domain.entity.vo.LoginType;
 import com.qrust.user.domain.entity.vo.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
