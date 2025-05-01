@@ -1,6 +1,7 @@
 package com.qrust.qrcode.domain.entity;
 
 import com.qrust.infrastructure.jpa.shared.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class QrCodeImage extends BaseEntity {
     @JoinColumn(name = "qr_code_id", nullable = false)
     private QrCode qrCode;
 
+    @Column(name = "qr_image_url", nullable = false)
     private String imageUrl;
 
 }

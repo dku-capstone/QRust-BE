@@ -1,7 +1,7 @@
 package com.qrust.qrcode.domain.entity;
 
 import com.qrust.infrastructure.jpa.shared.BaseEntity;
-import com.qrust.qrcode.domain.entity.vo.QrcodeData;
+import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -11,14 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "qr_code")
 @Getter
-@Builder
+@SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QrCode extends BaseEntity {
@@ -31,8 +31,11 @@ public class QrCode extends BaseEntity {
     private Long userId;
 
     @Embedded
-    private QrcodeData qrCodeData;
+    private QrCodeData qrCodeData;
 
-    private boolean isEncrypted;
-    private boolean isExpired;
+    @Column(name="is_encrypted", nullable = false)
+    private boolean isEncrypted = false;
+
+    @Column(name="is_expired", nullable = false)
+    private boolean isExpired = false;
 }
