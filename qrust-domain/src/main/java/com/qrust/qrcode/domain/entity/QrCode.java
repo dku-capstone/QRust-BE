@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "qr_code")
@@ -33,9 +34,11 @@ public class QrCode extends BaseEntity {
     @Embedded
     private QrCodeData qrCodeData;
 
+    @ColumnDefault(value = "false")
     @Column(name="is_encrypted", nullable = false)
-    private boolean isEncrypted = false;
+    private boolean isEncrypted;
 
+    @ColumnDefault(value = "false")
     @Column(name="is_expired", nullable = false)
-    private boolean isExpired = false;
+    private boolean isExpired;
 }
