@@ -1,5 +1,6 @@
 package com.qrust.common.exception;
 
+import com.qrust.common.exception.error.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
