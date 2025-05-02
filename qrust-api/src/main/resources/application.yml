@@ -1,3 +1,8 @@
 spring:
   application:
     name: QRust-BE
+
+
+crypto:
+  aes:
+    key: ${CRYPTO_AES_KEY}  # Base64 인코딩된 32바이트 키 (AES-256)
