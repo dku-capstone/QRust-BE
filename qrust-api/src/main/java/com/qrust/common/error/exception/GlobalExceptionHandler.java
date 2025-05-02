@@ -1,4 +1,4 @@
-package com.qrust.common.error;
+package com.qrust.common.error.exception;
 
 import com.qrust.common.dto.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
