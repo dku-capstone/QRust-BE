@@ -1,9 +1,12 @@
 # .coderabbit.yaml
 
 reviews:
-  default_branch_only: false  # develop, release/* 등에서도 리뷰되도록 설정
-
-review_status: true  # PR에 리뷰 상태 메시지 표시
+  auto_review:
+    base_branches:
+      - develop
+      - release/*
+      - main
+  review_status: true  # PR에 리뷰 상태 메시지 표시
 
 language: ko
 

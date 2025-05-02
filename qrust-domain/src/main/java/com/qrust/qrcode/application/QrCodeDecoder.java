@@ -1,4 +1,4 @@
-package com.qrust.qrcode.appliaction;
+package com.qrust.qrcode.application;
 
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 
