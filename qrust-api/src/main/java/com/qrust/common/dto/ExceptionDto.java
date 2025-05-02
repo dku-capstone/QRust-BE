@@ -1,5 +1,6 @@
 package com.qrust.common.dto;
 
+import com.qrust.common.exception.error.ErrorCode;
 import jakarta.validation.constraints.NotNull;
 
 public record ExceptionDto(
