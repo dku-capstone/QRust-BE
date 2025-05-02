@@ -1,6 +1,7 @@
 package com.qrust.common.exception;
 
 import com.qrust.common.dto.ApiResponse;
+import com.qrust.common.exception.error.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
