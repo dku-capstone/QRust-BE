@@ -1,5 +1,6 @@
+package com.qrust.common.dto;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.qrust.common.dto.ExceptionDto;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
