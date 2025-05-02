@@ -1,4 +1,4 @@
-package com.qrust.qrcode.utils;
+package com.qrust.utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;

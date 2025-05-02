@@ -8,7 +8,7 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.qrust.qrcode.application.QrCodeDecoder;
-import com.qrust.qrcode.utils.AesUtil;
+import com.qrust.utils.AesUtil;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

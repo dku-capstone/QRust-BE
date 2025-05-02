@@ -6,7 +6,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.qrust.qrcode.application.QrCodeGenerator;
-import com.qrust.qrcode.utils.AesUtil;
+import com.qrust.utils.AesUtil;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -21,10 +21,18 @@ public class QrCodeGeneratorImpl implements QrCodeGenerator {
     private final ObjectMapper objectMapper;
     private final AesUtil aesUtil;
 
+    public static final int QR_WIDTH = 300;
+    public static final int QR_HEIGHT = 300;
+
     @Override
     public byte[] generateQrCode(QrCodeData qrCodeData) {
 
         try {
+
+            // TODO
+            // Intent Schema 적용
+
+
             // QR 코드 데이터 객체 -> JSON 직렬화 (e.g. {title: "제목", "url" : "https://example.com"})
             String jsonQrCodeData = objectMapper.writeValueAsString(qrCodeData);
 
@@ -32,7 +40,7 @@ public class QrCodeGeneratorImpl implements QrCodeGenerator {
             String encryptedJsonQrCodeData = aesUtil.encrypt(jsonQrCodeData);
 
             //QR 코드 데이터를 QR 코드로 변환 (300 x 300 크기)
-            BitMatrix qrMatrix = new QRCodeWriter().encode(encryptedJsonQrCodeData, BarcodeFormat.QR_CODE, 300, 300);
+            BitMatrix qrMatrix = new QRCodeWriter().encode(encryptedJsonQrCodeData, BarcodeFormat.QR_CODE, QR_WIDTH, QR_HEIGHT);
 
             // QR 코드를 이미지로 변환
             BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(qrMatrix);

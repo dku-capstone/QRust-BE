@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
-import com.qrust.qrcode.utils.AesUtil;
+import com.qrust.utils.AesUtil;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
