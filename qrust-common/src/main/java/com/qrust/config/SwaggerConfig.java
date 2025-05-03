@@ -1,20 +1,27 @@
 package com.qrust.config;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
+
+import io.swagger.v3.oas.models.info.Info;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "QRust API", description = "QRust : API 명세서", version = "v1.0.0"))
 public class SwaggerConfig {
 
     @Bean
-    public GroupedOpenApi qrustOpenApi() {
-        return GroupedOpenApi.builder()
-                .group("QRust OPEN API")
+    public GroupedOpenApi qrustGroupedOpenApi() {
+        return GroupedOpenApi
+                .builder()
+                .group("capstone")
                 .pathsToMatch("/**")
+                .addOpenApiCustomizer(openApi ->
+                        openApi.setInfo(new Info()
+                                .title("qrust api")
+                                .description("QRust API")
+                                .version("1.0.0")
+                        )
+                )
                 .build();
     }
 }
