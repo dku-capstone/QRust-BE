@@ -48,4 +48,13 @@ subprojects {
     test {
         useJUnitPlatform()
     }
+
+    tasks.test {
+        useJUnitPlatform {
+            def exclude = System.getProperty("excludeTags")
+            if (exclude != null) {
+                excludeTags exclude
+            }
+        }
+    }
 }

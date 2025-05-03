@@ -34,7 +34,7 @@ public class QrCodeGeneratorService {
         // User 연동
 
         QrCodeImage qrCodeImage = new QrCodeImage(null, qrCodeImageUrl);
-        QrCode qrCode = new QrCode(null, userId, qrCodeData, qrCodeImage, false);
+        QrCode qrCode = new QrCode(null, 1111L, qrCodeData, qrCodeImage, false);
 
         qrCodeImageRepository.save(qrCodeImage);
         qrCodeRepository.save(qrCode);

@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest # Github Hosted Runner
     env:
       CRYPTO_AES_KEY: ${{ secrets.CRYPTO_AES_KEY }}
-      MINIO_ENDPOINT: ${{ secrets.MINIO_ENDPOINT }}
-      MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
-      MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-      MINIO_BUCKET_NAME: ${{ secrets.MINIO_BUCKET_NAME }}
 
     steps:
       - name: Checkout Source
@@ -32,5 +28,6 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew clean test bootJar
+          ./gradlew clean test bootJar -DexcludeTags=minio
+
 
