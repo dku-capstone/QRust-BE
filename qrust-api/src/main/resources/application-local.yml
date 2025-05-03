@@ -21,8 +21,8 @@ spring:
     resources:
       add-mappings: false
 
-  google:
-    safe-browsing:
-      api:
-        key: ${GOOGLE_SAFE_BROWSING_API_KEY}
-        base-url: ${GOOGLE_SAFE_BROWSING_BASE_URL}
+google:
+  safe-browsing:
+    api:
+      key: ${GOOGLE_SAFE_BROWSING_API_KEY}
+      base-url: ${GOOGLE_SAFE_BROWSING_BASE_URL}
