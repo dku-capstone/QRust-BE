@@ -3,7 +3,7 @@ package com.qrust.common.exception;
 import com.qrust.common.dto.ApiResponse;
 import com.qrust.common.exception.error.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.TypeMismatchException;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -53,7 +53,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public ApiResponse<?> handleException(Exception e) {
         log.error("handleException() in GlobalExceptionHandler throw Exception : {}", e.getMessage());
-        e.printStackTrace();
         return ApiResponse.fail(new CustomException(ErrorCode.INTERNAL_SERVER_ERROR));
     }
 }
