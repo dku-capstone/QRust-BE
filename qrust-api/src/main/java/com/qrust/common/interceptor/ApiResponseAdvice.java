@@ -20,7 +20,7 @@ public class ApiResponseAdvice implements ResponseBodyAdvice {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
                                   Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if (returnType.getParameterType() == ApiResponse.class) {
+        if (body instanceof ApiResponse<?>) {
             HttpStatus status = ((ApiResponse<?>) body).httpStatus();
             response.setStatusCode(status);
         }
