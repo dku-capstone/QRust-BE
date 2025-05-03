@@ -1,4 +1,4 @@
-package com.qrust.controller.external.google.dto.request;
+package com.qrust.external.google.dto.request;
 
 import java.util.List;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.qrust.controller.external.feign.config;
+package com.qrust.external.google.feign.config;
 
-import com.qrust.controller.external.feign.client.GoogleSafeBrowsingFeignClient;
+import com.qrust.external.google.feign.client.GoogleSafeBrowsingFeignClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Configuration;
 

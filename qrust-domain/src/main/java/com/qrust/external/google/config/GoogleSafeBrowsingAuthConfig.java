@@ -1,4 +1,4 @@
-package com.qrust.controller.external.google.config;
+package com.qrust.external.google.config;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

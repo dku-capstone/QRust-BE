@@ -1,4 +1,4 @@
-package com.qrust.controller.external.google.config;
+package com.qrust.external.google.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
