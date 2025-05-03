@@ -1,9 +1,9 @@
-package com.qrust.external.google.feign.client;
+package com.qrust.external.google.infrastructure;
 
-import com.qrust.external.google.config.GoogleSafeBrowsingAuthConfig;
-import com.qrust.external.google.dto.request.GoogleSafeBrowsingRequest;
-import com.qrust.external.google.dto.response.GoogleSafeBrowsingResponse;
-import com.qrust.external.google.feign.config.FeignConfig;
+import com.qrust.infrastructure.google.config.GoogleSafeBrowsingAuthConfig;
+import com.qrust.external.google.application.dto.request.GoogleSafeBrowsingRequest;
+import com.qrust.external.google.application.dto.response.GoogleSafeBrowsingResponse;
+import com.qrust.common.config.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

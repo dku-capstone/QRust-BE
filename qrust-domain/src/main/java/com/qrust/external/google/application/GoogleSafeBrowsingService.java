@@ -1,8 +1,8 @@
-package com.qrust.external.google.service;
+package com.qrust.external.google.application;
 
-import com.qrust.external.google.dto.request.GoogleSafeBrowsingRequest;
-import com.qrust.external.google.dto.response.GoogleSafeBrowsingResponse;
-import com.qrust.external.google.feign.client.GoogleSafeBrowsingFeignClient;
+import com.qrust.external.google.application.dto.request.GoogleSafeBrowsingRequest;
+import com.qrust.external.google.application.dto.response.GoogleSafeBrowsingResponse;
+import com.qrust.external.google.infrastructure.GoogleSafeBrowsingFeignClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SafeBrowsingService {
+public class GoogleSafeBrowsingService {
 
     private static final String CLIENT_ID = "qrust-app";
     private static final String CLIENT_VERSION = "1.0";
