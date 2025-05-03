@@ -1,6 +1,9 @@
 package com.qrust.controller.external.feign.client;
 
 import com.qrust.controller.external.feign.config.FeignConfig;
+import com.qrust.controller.external.google.config.GoogleSafeBrowsingAuthConfig;
+import com.qrust.controller.external.google.dto.request.GoogleSafeBrowsingRequest;
+import com.qrust.controller.external.google.dto.response.GoogleSafeBrowsingResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,5 +16,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 )
 public interface GoogleSafeBrowsingFeignClient {
     @PostMapping(value = "/v4/threatMatches:find", produces = MediaType.APPLICATION_JSON_VALUE)
-    SafeBrowsingResponse checkUrl(@RequestBody SafeBrowsingRequest request);
+    GoogleSafeBrowsingResponse checkUrl(@RequestBody GoogleSafeBrowsingRequest request);
 }
