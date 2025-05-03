@@ -32,6 +32,8 @@ subprojects {
     apply from: "${rootDir}/gradle/swagger.gradle"
     apply from: "${rootDir}/gradle/test.gradle"
     apply from: "${rootDir}/gradle/webflux.gradle"
+    apply from: "${rootDir}/gradle/zxing.gradle"
+    apply from: "${rootDir}/gradle/minio.gradle"
 
     configurations {
         compileOnly {
