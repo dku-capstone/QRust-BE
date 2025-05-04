@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://127.0.0.1:3306/qrust?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 1234
 
   jpa:
     hibernate:
@@ -20,9 +20,3 @@ spring:
   web:
     resources:
       add-mappings: false
-
-google:
-  safe-browsing:
-    api:
-      key: ${GOOGLE_SAFE_BROWSING_API_KEY}
-      base-url: ${GOOGLE_SAFE_BROWSING_BASE_URL}

@@ -6,3 +6,9 @@ spring:
 crypto:
   aes:
     key: ${CRYPTO_AES_KEY}  # Base64 인코딩된 32바이트 키 (AES-256)
+
+google:
+  safe-browsing:
+    api:
+      key: ${GOOGLE_SAFE_BROWSING_API_KEY}
+      base-url: ${GOOGLE_SAFE_BROWSING_BASE_URL}
