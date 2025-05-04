@@ -5,9 +5,12 @@ import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,7 +23,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "qr_code")
 @Getter
 @SuperBuilder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QrCode extends BaseEntity {
 
@@ -34,9 +37,9 @@ public class QrCode extends BaseEntity {
     @Embedded
     private QrCodeData qrCodeData;
 
-    @ColumnDefault(value = "false")
-    @Column(name="is_encrypted", nullable = false)
-    private boolean isEncrypted;
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "qr_code_image_id", referencedColumnName = "id", nullable = false)
+    private QrCodeImage qrCodeImage;
 
     @ColumnDefault(value = "false")
     @Column(name="is_expired", nullable = false)

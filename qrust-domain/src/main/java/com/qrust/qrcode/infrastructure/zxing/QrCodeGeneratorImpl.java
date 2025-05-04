@@ -29,7 +29,7 @@ public class QrCodeGeneratorImpl implements QrCodeGenerator {
 
         try {
 
-            // TODO
+            //TODO
             // Intent Schema 적용
 
 

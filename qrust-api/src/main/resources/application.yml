@@ -2,6 +2,15 @@ spring:
   application:
     name: QRust-BE
 
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
 
 crypto:
   aes:
@@ -12,3 +21,9 @@ google:
     api:
       key: ${GOOGLE_SAFE_BROWSING_API_KEY}
       base-url: ${GOOGLE_SAFE_BROWSING_BASE_URL}
+
+minio:
+  endpoint: http://mayfifth99.store:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucketName: qrust-bucket

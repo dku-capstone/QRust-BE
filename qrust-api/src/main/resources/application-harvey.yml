@@ -19,3 +19,9 @@ spring:
 logging.level:
   org.hibernate.SQL: debug # 이거 끄면 format_sql 적용 안됨
 #  org.hibernate.type: trace
+
+minio:
+  endpoint: http://mayfifth99.store:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucketName: qrust-bucket
