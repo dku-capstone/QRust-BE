@@ -4,11 +4,13 @@ import com.qrust.external.google.application.dto.request.GoogleSafeBrowsingReque
 import com.qrust.external.google.application.dto.response.GoogleSafeBrowsingResponse;
 import com.qrust.external.google.infrastructure.GoogleSafeBrowsingFeignClient;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class GoogleSafeBrowsingService {
 
@@ -22,9 +24,19 @@ public class GoogleSafeBrowsingService {
     private final GoogleSafeBrowsingFeignClient googleSafeBrowsingFeignClient;
 
     public boolean isUrlDangerous(String url) {
-        GoogleSafeBrowsingRequest request = buildRequest(url);
-        GoogleSafeBrowsingResponse response = googleSafeBrowsingFeignClient.checkUrl(request);
-        return hasThreatMatches(response);
+        if (url == null || url.isEmpty() || !isValidUrl(url)) {
+            log.warn("유효하지 않은 URL 입력: {}", url);
+            throw new IllegalArgumentException("유효하지 않은 URL 형식입니다."); // TODO
+        }
+
+        try {
+            GoogleSafeBrowsingRequest request = buildRequest(url);
+            GoogleSafeBrowsingResponse response = googleSafeBrowsingFeignClient.checkUrl(request);
+            return hasThreatMatches(response);
+        } catch (Exception e) {
+            log.error("Google Safe Browsing API 호출 중 오류 발생: {}", e.getMessage(), e);
+            throw new RuntimeException("URL 검사 중 오류 발생", e); // TODO: Custom Exception으로 매핑
+        }
     }
 
     private GoogleSafeBrowsingRequest buildRequest(String url) {
@@ -50,5 +62,14 @@ public class GoogleSafeBrowsingService {
 
     private boolean hasThreatMatches(GoogleSafeBrowsingResponse response) {
         return response != null && response.getMatches() != null && !response.getMatches().isEmpty();
+    }
+
+    private boolean isValidUrl(String url) {
+        try {
+            new java.net.URL(url).toURI();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
