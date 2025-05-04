@@ -1,0 +1,19 @@
+package com.qrust.recognize.controller;
+
+import com.qrust.common.dto.ApiResponse;
+import com.qrust.external.google.application.GoogleSafeBrowsingService;
+import com.qrust.recognize.swagger.GoogleSafeBrowsingControllerSpec;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+public class GoogleSafeBrowsingController implements GoogleSafeBrowsingControllerSpec {
+
+    private final GoogleSafeBrowsingService safeBrowsingService;
+
+    @Override
+    public ApiResponse<Boolean> checkUrl(String url) {
+        return ApiResponse.ok(safeBrowsingService.isUrlDangerous(url));
+    }
+}

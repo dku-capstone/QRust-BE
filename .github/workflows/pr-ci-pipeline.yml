@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest # Github Hosted Runner
     env:
       CRYPTO_AES_KEY: ${{ secrets.CRYPTO_AES_KEY }}
+      GOOGLE_SAFE_BROWSING_API_KEY: ${{ secrets.GOOGLE_SAFE_BROWSING_API_KEY }}
+      GOOGLE_SAFE_BROWSING_BASE_URL: ${{ secrets.GOOGLE_SAFE_BROWSING_BASE_URL }}
 
     steps:
       - name: Checkout Source
