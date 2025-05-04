@@ -5,15 +5,14 @@ import com.qrust.qrcode.domain.entity.QrCodeImage;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 import com.qrust.qrcode.domain.service.QrCodeGenerator;
 import com.qrust.qrcode.domain.service.QrCodeUpload;
-import com.qrust.qrcode.infrastructure.jpa.QrCodeImageRepository;
-import com.qrust.qrcode.infrastructure.jpa.QrCodeRepository;
+import com.qrust.qrcode.domain.repository.QrCodeImageRepository;
+import com.qrust.qrcode.domain.repository.QrCodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class QrCodeGeneratorService {
 
     private final QrCodeGenerator qrCodeGenerator;
