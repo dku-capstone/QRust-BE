@@ -1,4 +1,4 @@
-package com.qrust.controller;
+package com.qrust;
 
 import com.qrust.common.dto.ApiResponse;
 import com.qrust.common.exception.CustomException;
