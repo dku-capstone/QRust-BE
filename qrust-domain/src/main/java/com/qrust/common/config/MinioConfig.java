@@ -1,4 +1,4 @@
-package com.qrust.config;
+package com.qrust.common.config;
 
 import com.qrust.infrastructure.minio.MinioProperties;
 import io.minio.MinioClient;

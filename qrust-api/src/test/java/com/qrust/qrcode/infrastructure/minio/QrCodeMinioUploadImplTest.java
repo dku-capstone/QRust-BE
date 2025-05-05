@@ -17,7 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @Tag("minio")
-@ActiveProfiles("harvey")
 class QrCodeMinioUploadImplTest extends QrCodeTestTemplate {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.qrust.config;
+package com.qrust.common.config;
 
 import com.qrust.utils.AesUtil;
 import org.springframework.beans.factory.annotation.Value;
