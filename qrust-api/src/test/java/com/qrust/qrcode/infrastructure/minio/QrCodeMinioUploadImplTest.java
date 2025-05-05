@@ -30,9 +30,9 @@ class QrCodeMinioUploadImplTest extends QrCodeTestTemplate {
         // when
         byte[] qrCodeImage = qrCodeGenerator.generateQrCode(qrCodeData);
 
-        // 로컬 저장
-        Path outputPath = Paths.get("src/test/resources/generated_test_qr.png");
-        Files.write(outputPath, qrCodeImage);
+//        // 로컬 저장
+//        Path outputPath = Paths.get("src/test/resources/generated_test_qr.png");
+//        Files.write(outputPath, qrCodeImage);
 
         // MinIO 업로드
         String imageUrl = qrCodeUploader.uploadQrCodeImage(qrCodeImage);

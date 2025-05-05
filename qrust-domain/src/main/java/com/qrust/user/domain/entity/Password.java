@@ -1,6 +1,6 @@
 package com.qrust.user.domain.entity;
 
-import com.qrust.infrastructure.jpa.shared.BaseEntity;
+import com.qrust.common.infrastructure.jpa.shared.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
