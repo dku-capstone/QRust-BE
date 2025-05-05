@@ -7,9 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.qrust.external.google.application.dto.request.GoogleSafeBrowsingRequest;
-import com.qrust.external.google.application.dto.response.GoogleSafeBrowsingResponse;
-import com.qrust.external.google.application.dto.response.GoogleSafeBrowsingResponse.ThreatMatch;
+import com.qrust.external.google.dto.request.GoogleSafeBrowsingRequest;
+import com.qrust.external.google.dto.response.GoogleSafeBrowsingResponse;
+import com.qrust.external.google.dto.response.GoogleSafeBrowsingResponse.ThreatMatch;
 import com.qrust.external.google.infrastructure.GoogleSafeBrowsingFeignClient;
 import java.util.Collections;
 import java.util.List;
