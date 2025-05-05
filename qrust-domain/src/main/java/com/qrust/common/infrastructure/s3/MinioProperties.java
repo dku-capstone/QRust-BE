@@ -1,4 +1,4 @@
-package com.qrust.infrastructure.minio;
+package com.qrust.common.infrastructure.s3;
 
 import lombok.Getter;
 import lombok.Setter;

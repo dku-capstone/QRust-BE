@@ -1,6 +1,6 @@
-package com.qrust.common.config;
+package com.qrust.common.infrastructure.s3;
 
-import com.qrust.infrastructure.minio.MinioProperties;
+import com.qrust.common.infrastructure.s3.MinioProperties;
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

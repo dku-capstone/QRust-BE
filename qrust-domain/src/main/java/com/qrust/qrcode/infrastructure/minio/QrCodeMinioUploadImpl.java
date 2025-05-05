@@ -1,6 +1,6 @@
 package com.qrust.qrcode.infrastructure.minio;
 
-import com.qrust.infrastructure.minio.MinioProperties;
+import com.qrust.common.infrastructure.s3.MinioProperties;
 import com.qrust.qrcode.domain.service.QrCodeUpload;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
