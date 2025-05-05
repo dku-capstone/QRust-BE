@@ -1,7 +1,7 @@
 package com.qrust.external.google.application;
 
-import com.qrust.external.google.dto.request.GoogleSafeBrowsingRequest;
-import com.qrust.external.google.dto.response.GoogleSafeBrowsingResponse;
+import com.qrust.external.google.application.dto.request.GoogleSafeBrowsingRequest;
+import com.qrust.external.google.application.dto.response.GoogleSafeBrowsingResponse;
 import com.qrust.external.google.infrastructure.GoogleSafeBrowsingFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
