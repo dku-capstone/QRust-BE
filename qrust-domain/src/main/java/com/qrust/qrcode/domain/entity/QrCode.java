@@ -1,6 +1,6 @@
 package com.qrust.qrcode.domain.entity;
 
-import com.qrust.infrastructure.jpa.shared.BaseEntity;
+import com.qrust.common.infrastructure.jpa.shared.BaseEntity;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;

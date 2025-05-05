@@ -23,7 +23,7 @@ google:
       base-url: ${GOOGLE_SAFE_BROWSING_BASE_URL}
 
 minio:
-  endpoint: http://mayfifth99.store:9000
+  endpoint: http://localhost:9000
   access-key: minioadmin
   secret-key: minioadmin
   bucketName: qrust-bucket

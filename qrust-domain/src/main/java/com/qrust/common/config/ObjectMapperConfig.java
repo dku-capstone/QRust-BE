@@ -1,4 +1,4 @@
-package com.qrust.config;
+package com.qrust.common.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
