@@ -43,6 +43,7 @@ jobs:
           host: ${{ secrets.ORACLE_HOST }}
           username: ${{ secrets.ORACLE_USER_NAME }}
           key: ${{ secrets.ORACLE_SSH_KEY }}
+          port: ${{ secrets.ORACLE_PORT }}
           script: |
             docker rmi -f ${{ secrets.DOCKERHUB_USER_NAME }}/qrust-image:latest
             docker pull ${{ secrets.DOCKERHUB_USER_NAME }}/qrust-image:latest
