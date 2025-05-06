@@ -1,6 +1,9 @@
 name: PR-MERGE-CD-PIPELINE
 on:
   push:
+    branches:
+      - develop
+      - main
     tags:
       - 'v*'
 
@@ -9,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CRYPTO_AES_KEY: ${{ secrets.CRYPTO_AES_KEY }}
+      GOOGLE_SAFE_BROWSING_API_KEY: ${{ secrets.GOOGLE_SAFE_BROWSING_API_KEY }}
+      GOOGLE_SAFE_BROWSING_BASE_URL: ${{ secrets.GOOGLE_SAFE_BROWSING_BASE_URL }}
 
     steps:
       - name: Checkout
@@ -37,7 +42,8 @@ jobs:
           username: ${{ secrets.ORACLE_USER_NAME }}
           key: ${{ secrets.ORACLE_SSH_KEY }}
           script: |
+            docker rmi -f ${{ secrets.DOCKERHUB_USER_NAME }}/qrust-image:latest
             docker pull ${{ secrets.DOCKERHUB_USER_NAME }}/qrust-image:latest
-            docker stop qrust-container || true
-            docker rm qrust-container || true
-            docker run -d --name qrust-container -p 8080:8080 ${{ secrets.DOCKERHUB_USER_NAME }}/qrust-image:latest
+            cd /home/ubuntu/qrust/docker/app
+            docker compose up -d
+            docker image prune -f
