@@ -22,6 +22,8 @@ ARG JAR_FILE=build/libs/*.jar
 
 COPY --from=build ${APP_DIR}/qrust-api/${JAR_FILE} app.jar
 
+ENV SPRING_PROFILES_ACTIVE=prod
+
 # 포트 오픈
 EXPOSE 8080
 
