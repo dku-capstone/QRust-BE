@@ -6,10 +6,10 @@ ARG APP_DIR=/home/app
 
 # 소스 코드 복사
 COPY .. ${APP_DIR}
-WORKDIR ${APP_DIR}
+WORKDIR ${APP_DIR}/qrust-api
 
 # 빌드 실행
-RUN gradle build --no-daemon -x test
+RUN gradle build --no-daemon
 
 # 2단계: 실행 전용 스테이지
 FROM openjdk:21-jdk
@@ -17,12 +17,10 @@ FROM openjdk:21-jdk
 # 앱 경로를 변수로 설정 (두 번째 스테이지에서도 동일하게 유지)
 ARG APP_DIR=/home/app
 
-
 # 빌드 결과물 복사
 ARG JAR_FILE=build/libs/*.jar
 
-
-COPY --from=build ${APP_DIR}/${JAR_FILE} app.jar
+COPY --from=build ${APP_DIR}/qrust-api/${JAR_FILE} app.jar
 
 # 포트 오픈
 EXPOSE 8080
