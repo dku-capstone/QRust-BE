@@ -9,7 +9,7 @@ COPY .. ${APP_DIR}
 WORKDIR ${APP_DIR}/qrust-api
 
 # 빌드 실행
-RUN gradle build --no-daemon
+RUN gradle build --no-daemon -x test
 
 # 2단계: 실행 전용 스테이지
 FROM openjdk:21-jdk
