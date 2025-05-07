@@ -2,8 +2,8 @@ package com.qrust.qrcode.domain.repository;
 
 import com.qrust.qrcode.domain.entity.QQrCode;
 import com.qrust.qrcode.domain.entity.QQrCodeImage;
-import com.qrust.qrcode.dto.response.QrCodeListResponseDto;
 import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
+import com.qrust.qrcode.dto.response.QrCodeListResponseDto;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -56,6 +56,8 @@ public class QrCodeQueryRepository {
 
     private BooleanBuilder buildSearchCondition(QrCodeSearchRequestDto dto) {
         BooleanBuilder builder = new BooleanBuilder();
+
+//        builder.and(qrCode.qrCodeStatus.ne(QrCodeStatus.EXPIRED)); // code level filter
 
         if (dto.title() != null && !dto.title().isBlank()) {
             builder.and(qrCode.qrCodeData.title.containsIgnoreCase(dto.title()));

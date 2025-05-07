@@ -22,6 +22,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLRestriction;
+
 //TODO
 // 인덱스 추가
 @Entity
@@ -51,6 +53,7 @@ public class QrCode extends BaseEntity {
     @Column(name = "qr_code_type", nullable = false)
     private QrCodeType qrCodeType = QrCodeType.URL;
 
+    @SQLRestriction("qrCodeStatus != 'EXPIRED'")
     @Enumerated(EnumType.STRING)
     @Builder.Default
     @Column(name = "qr_code_status", nullable = false)
