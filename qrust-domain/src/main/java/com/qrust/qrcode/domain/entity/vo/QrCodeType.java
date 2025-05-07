@@ -1,5 +1,8 @@
 package com.qrust.qrcode.domain.entity.vo;
 
+import lombok.Getter;
+
+@Getter
 public enum QrCodeType {
 
     URL("웹사이트"),

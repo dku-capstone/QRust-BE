@@ -7,10 +7,10 @@ import com.qrust.qrcode.application.QrCodeGeneratorService;
 import com.qrust.qrcode.application.QrCodeQueryService;
 import com.qrust.qrcode.controller.swagger.QrCodeControllerSpec;
 import com.qrust.qrcode.dto.request.QrCodeGenerateRequestDto;
+import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import com.qrust.qrcode.dto.request.QrCodeUpdateRequestDto;
 import com.qrust.qrcode.dto.response.QrCodeListResponseDto;
 import com.qrust.qrcode.dto.response.QrCodeResponseDto;
-import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -84,7 +84,7 @@ public class QrCodeController implements QrCodeControllerSpec {
 
         qrCodeCommandService.updateQrCode(dto, qrCodeId);
 
-        return ApiResponse.ok("ok");
+        return ApiResponse.ok(null);
     }
 
     // 삭제
@@ -92,6 +92,6 @@ public class QrCodeController implements QrCodeControllerSpec {
     public ApiResponse<?> deleteQrCode(@PathVariable(name = "qrCodeId") Long qrCodeId) {
         qrCodeCommandService.deleteQrCode(qrCodeId);
 
-        return ApiResponse.ok("ok");
+        return ApiResponse.ok(null);
     }
 }
