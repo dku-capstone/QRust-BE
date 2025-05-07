@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,4 +30,19 @@ public class Password extends BaseEntity {
 
     @Column(name = "password", nullable = false)
     private String pwd;
+
+    @Builder
+    public Password(Long userId, String salt, String pwd) {
+        this.userId = userId;
+        this.salt = salt;
+        this.pwd = pwd;
+    }
+
+    public static Password of (Long userId, String salt, String pwd){
+        return Password.builder()
+                .userId(userId)
+                .salt(salt)
+                .pwd(pwd)
+                .build();
+    }
 }
