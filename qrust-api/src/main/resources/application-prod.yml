@@ -1,10 +1,39 @@
+server:
+  port: 8080
+
 spring:
   datasource:
-    url: ${PROD_DB_URL}
-    username: ${PROD_DB_USERNAME}
-    password: ${PROD_DB_PASSWORD}
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  web:
-    resources:
-      add-mappings: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
+      password: ${REDIS_PASSWORD}
+
+crypto:
+  aes:
+    key: ${CRYPTO_AES_KEY}  # Base64 인코딩된 32바이트 키 (AES-256)
+
+google:
+  safe-browsing:
+    api:
+      key: ${GOOGLE_SAFE_BROWSING_API_KEY}
+      base-url: ${GOOGLE_SAFE_BROWSING_BASE_URL}
+
+minio:
+  endpoint: ${MINIO_ENDPOINT}
+  accessKey: ${MINIO_ACCESS_KEY}
+  secretKey: ${MINIO_SECRET_KEY}
+  bucketName: ${MINIO_BUCKET_NAME}
