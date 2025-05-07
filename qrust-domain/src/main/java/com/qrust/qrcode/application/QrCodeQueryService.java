@@ -4,9 +4,9 @@ import com.qrust.common.dto.PageResponse;
 import com.qrust.qrcode.domain.entity.QrCode;
 import com.qrust.qrcode.domain.repository.QrCodeQueryRepository;
 import com.qrust.qrcode.domain.repository.QrCodeRepository;
+import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import com.qrust.qrcode.dto.response.QrCodeListResponseDto;
 import com.qrust.qrcode.dto.response.QrCodeResponseDto;
-import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,7 @@ public class QrCodeQueryService {
                         qrCode.getId(),
                         qrCode.getQrCodeImage().getImageUrl(),
                         qrCode.getQrCodeData().getTitle(),
-                        qrCode.getCreatedAt(),
+                        qrCode.getCreatedAt().toLocalDate(),
                         qrCode.getQrCodeData().getUrl()
                 ));
         return PageResponse.from(result);
@@ -44,7 +44,7 @@ public class QrCodeQueryService {
         return new QrCodeResponseDto(
                 qrCode.getQrCodeImage().getImageUrl(),
                 qrCode.getQrCodeData().getTitle(),
-                qrCode.getCreatedAt(),
+                qrCode.getCreatedAt().toLocalDate(),
                 qrCode.getQrCodeData().getUrl()
         );
     }

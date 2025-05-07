@@ -21,6 +21,8 @@ public class QrCodeCommandService {
     }
 
     // 삭제
+    //TODO
+    // @SQLRestriction 으로 Expire QR 코드 조회 제외
     public void deleteQrCode(Long qrCodeId) {
         QrCode qrCode = getQrCode(qrCodeId);
         qrCode.updateQrCode(null, QrCodeStatus.EXPIRED);

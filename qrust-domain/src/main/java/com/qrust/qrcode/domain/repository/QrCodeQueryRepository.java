@@ -62,11 +62,12 @@ public class QrCodeQueryRepository {
         }
 
         if (dto.start() != null && dto.end() != null) {
-            builder.and(qrCode.createdAt.between(dto.start(), dto.end()));
+            builder.and(qrCode.createdAt.between(dto.start().atStartOfDay(),
+                    dto.end().atStartOfDay()));
         } else if (dto.start() != null) {
-            builder.and(qrCode.createdAt.goe(dto.start()));
+            builder.and(qrCode.createdAt.goe(dto.start().atStartOfDay()));
         } else if (dto.end() != null) {
-            builder.and(qrCode.createdAt.loe(dto.end()));
+            builder.and(qrCode.createdAt.loe(dto.end().atStartOfDay()));
         }
 
         if (dto.type() != null) {

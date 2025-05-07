@@ -79,8 +79,8 @@ public interface QrCodeControllerSpec {
               "title": "검색할 제목",
               "type": "URL",
               "status": "ACTIVE",
-              "start": "2024-01-01T00:00:00",
-              "end": "2025-12-31T23:59:59"
+              "start": "2024-01-01",
+              "end": "2025-12-31"
             }
             """;
 

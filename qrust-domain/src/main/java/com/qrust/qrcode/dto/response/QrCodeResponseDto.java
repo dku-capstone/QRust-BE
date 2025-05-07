@@ -1,6 +1,6 @@
 package com.qrust.qrcode.dto.response;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-public record QrCodeResponseDto(String qrCodeImageUrl, String title, LocalDateTime createdAt, String url) {
+public record QrCodeResponseDto(String qrCodeImageUrl, String title, LocalDate createdAt, String url) {
 }
