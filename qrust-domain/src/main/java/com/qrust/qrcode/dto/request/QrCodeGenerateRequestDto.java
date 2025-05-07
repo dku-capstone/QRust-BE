@@ -1,4 +1,4 @@
-package com.qrust.qrcode.dto;
+package com.qrust.qrcode.dto.request;
 
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 
