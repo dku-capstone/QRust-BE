@@ -24,7 +24,7 @@ public class QrCodeCommandService {
     public void deleteQrCode(Long qrCodeId) {
         QrCode qrCode = getQrCode(qrCodeId);
         qrCode.updateQrCode(null, QrCodeStatus.EXPIRED);
-        qrCodeRepository.deleteById(qrCodeId);
+//        qrCodeRepository.deleteById(qrCodeId);
     }
 
     private QrCode getQrCode(Long qrCodeId) {
