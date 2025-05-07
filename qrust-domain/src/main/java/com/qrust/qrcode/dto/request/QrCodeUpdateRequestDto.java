@@ -1,5 +1,7 @@
 package com.qrust.qrcode.dto.request;
 
-public record QrCodeUpdateRequestDto() {
+import com.qrust.qrcode.domain.entity.vo.QrCodeStatus;
+
+public record QrCodeUpdateRequestDto(String title, QrCodeStatus status) {
 
 }

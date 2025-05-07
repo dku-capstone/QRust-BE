@@ -56,4 +56,17 @@ public class QrCode extends BaseEntity {
     @Column(name = "qr_code_status", nullable = false)
     private QrCodeStatus qrCodeStatus = QrCodeStatus.ACTIVE;
 
+    public void updateQrCode(String title, QrCodeStatus status) {
+        if(title != null){
+            this.qrCodeData = new QrCodeData(this.qrCodeData.getUrl(), title);
+        }
+
+        if(status != null){
+            changeStatus(status);
+        }
+    }
+
+    private void changeStatus(QrCodeStatus qrCodeStatus) {
+        this.qrCodeStatus = qrCodeStatus;
+    }
 }
