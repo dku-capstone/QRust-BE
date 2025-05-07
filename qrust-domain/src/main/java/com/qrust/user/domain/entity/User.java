@@ -1,7 +1,6 @@
 package com.qrust.user.domain.entity;
 
 import com.qrust.common.infrastructure.jpa.shared.BaseEntity;
-import com.qrust.user.domain.entity.vo.Gender;
 import com.qrust.user.domain.entity.vo.LoginType;
 import com.qrust.user.domain.entity.vo.UserRole;
 import jakarta.persistence.Column;
@@ -32,10 +31,6 @@ public class User extends BaseEntity {
 
     @Column(name = "user_name", nullable = false)
     private String userName;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender", nullable = false)
-    private Gender gender;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role", nullable = false)
