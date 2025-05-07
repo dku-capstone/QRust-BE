@@ -1,4 +1,4 @@
-package com.qrust.qrcode.dto;
+package com.qrust.qrcode.dto.response;
 
 import java.time.LocalDateTime;
 

@@ -5,13 +5,14 @@ import com.qrust.common.dto.PageResponse;
 import com.qrust.qrcode.application.QrCodeGeneratorService;
 import com.qrust.qrcode.application.QrCodeQueryService;
 import com.qrust.qrcode.controller.swagger.QrCodeControllerSpec;
-import com.qrust.qrcode.dto.QrCodeGenerateRequestDto;
-import com.qrust.qrcode.dto.QrCodeListResponseDto;
-import com.qrust.qrcode.dto.QrCodeResponseDto;
-import com.qrust.qrcode.dto.QrCodeSearchRequestDto;
+import com.qrust.qrcode.dto.request.QrCodeGenerateRequestDto;
+import com.qrust.qrcode.dto.response.QrCodeListResponseDto;
+import com.qrust.qrcode.dto.response.QrCodeResponseDto;
+import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,5 +71,14 @@ public class QrCodeController implements QrCodeControllerSpec {
                 dto, PageRequest.of(page, size));
 
         return ApiResponse.ok(result);
+    }
+
+    @PatchMapping("/{qrCodeId}")
+    public ApiResponse<?> updateQrCode(@PathVariable(name = "qrCodeId") Long qrCodeId,
+                                        @RequestBody QrCodeGenerateRequestDto dto) {
+
+        qrCodeGeneratorService.updateQrCode(qrCodeId, dto.toQrCodeData());
+
+        return ApiResponse.ok(null);
     }
 }

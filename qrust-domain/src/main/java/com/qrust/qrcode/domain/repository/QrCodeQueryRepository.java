@@ -2,8 +2,8 @@ package com.qrust.qrcode.domain.repository;
 
 import com.qrust.qrcode.domain.entity.QQrCode;
 import com.qrust.qrcode.domain.entity.QQrCodeImage;
-import com.qrust.qrcode.dto.QrCodeListResponseDto;
-import com.qrust.qrcode.dto.QrCodeSearchRequestDto;
+import com.qrust.qrcode.dto.response.QrCodeListResponseDto;
+import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

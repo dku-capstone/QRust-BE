@@ -2,10 +2,10 @@ package com.qrust.qrcode.controller.swagger;
 
 import com.qrust.common.dto.ApiResponse;
 import com.qrust.common.dto.PageResponse;
-import com.qrust.qrcode.dto.QrCodeGenerateRequestDto;
-import com.qrust.qrcode.dto.QrCodeListResponseDto;
-import com.qrust.qrcode.dto.QrCodeResponseDto;
-import com.qrust.qrcode.dto.QrCodeSearchRequestDto;
+import com.qrust.qrcode.dto.request.QrCodeGenerateRequestDto;
+import com.qrust.qrcode.dto.response.QrCodeListResponseDto;
+import com.qrust.qrcode.dto.response.QrCodeResponseDto;
+import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
