@@ -23,6 +23,10 @@ public class QrCodeGeneratorService {
     @Transactional
     public String generateQrCode(QrCodeData qrCodeData, Long userId) {
 
+        //TODO
+        // Title 중복 검증
+
+
         // 보안 QR 코드 생성
         byte[] qrCodeBytes = qrCodeGenerator.generateQrCode(qrCodeData);
 
@@ -33,7 +37,15 @@ public class QrCodeGeneratorService {
         // User 연동
 
         QrCodeImage qrCodeImage = new QrCodeImage(null, qrCodeImageUrl);
-        QrCode qrCode = new QrCode(null, 1111L, qrCodeData, qrCodeImage, false);
+
+        //FIXME
+        // 1111L -> userId
+        QrCode qrCode = QrCode.builder()
+                .userId(1111L)
+                .qrCodeData(qrCodeData)
+                .qrCodeImage(qrCodeImage)
+                .build();
+
 
         qrCodeImageRepository.save(qrCodeImage);
         qrCodeRepository.save(qrCode);
