@@ -42,6 +42,8 @@ public class QrCodeQueryService {
                 .orElseThrow(() -> new IllegalArgumentException("QR 코드를 찾을 수 없습니다."));
 
         return new QrCodeResponseDto(
+                qrCode.getId(),
+                qrCode.getQrCodeStatus(),
                 qrCode.getQrCodeImage().getImageUrl(),
                 qrCode.getQrCodeData().getTitle(),
                 qrCode.getCreatedAt().toLocalDate(),
