@@ -2,15 +2,18 @@ package com.qrust.qrcode.controller;
 
 import com.qrust.common.dto.ApiResponse;
 import com.qrust.common.dto.PageResponse;
+import com.qrust.qrcode.application.QrCodeCommandService;
 import com.qrust.qrcode.application.QrCodeGeneratorService;
 import com.qrust.qrcode.application.QrCodeQueryService;
 import com.qrust.qrcode.controller.swagger.QrCodeControllerSpec;
 import com.qrust.qrcode.dto.request.QrCodeGenerateRequestDto;
+import com.qrust.qrcode.dto.request.QrCodeUpdateRequestDto;
 import com.qrust.qrcode.dto.response.QrCodeListResponseDto;
 import com.qrust.qrcode.dto.response.QrCodeResponseDto;
 import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +30,10 @@ public class QrCodeController implements QrCodeControllerSpec {
 
     private final QrCodeGeneratorService qrCodeGeneratorService;
     private final QrCodeQueryService qrCodeQueryService;
+    private final QrCodeCommandService qrCodeCommandService;
 
     //TODO
-    // Authenticated User 연동 + userId 전달
+    // Authenticated User 연동 + UserDetail -> userId 전달
 
     @PostMapping("/generate")
     public ApiResponse<?> generateQrCode(@RequestBody QrCodeGenerateRequestDto dto, Long userId) {
@@ -73,12 +77,21 @@ public class QrCodeController implements QrCodeControllerSpec {
         return ApiResponse.ok(result);
     }
 
+    // 수정
     @PatchMapping("/{qrCodeId}")
     public ApiResponse<?> updateQrCode(@PathVariable(name = "qrCodeId") Long qrCodeId,
-                                        @RequestBody QrCodeGenerateRequestDto dto) {
+                                        @RequestBody QrCodeUpdateRequestDto dto) {
 
-        qrCodeGeneratorService.updateQrCode(qrCodeId, dto.toQrCodeData());
+        qrCodeCommandService.updateQrCode(dto, qrCodeId);
 
-        return ApiResponse.ok(null);
+        return ApiResponse.ok("ok");
+    }
+
+    // 삭제
+    @DeleteMapping("/{qrCodeId}")
+    public ApiResponse<?> deleteQrCode(@PathVariable(name = "qrCodeId") Long qrCodeId) {
+        qrCodeCommandService.deleteQrCode(qrCodeId);
+
+        return ApiResponse.ok("ok");
     }
 }
