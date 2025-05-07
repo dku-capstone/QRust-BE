@@ -23,4 +23,7 @@ dependencies {
 
     // Sentry
     implementation 'io.sentry:sentry-spring-boot-starter-jakarta:7.17.0'
+
+    // feign client
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 }

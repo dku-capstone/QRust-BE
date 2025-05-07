@@ -1,0 +1,75 @@
+package com.qrust.external.google.application;
+
+import com.qrust.external.google.application.dto.request.GoogleSafeBrowsingRequest;
+import com.qrust.external.google.application.dto.response.GoogleSafeBrowsingResponse;
+import com.qrust.external.google.infrastructure.GoogleSafeBrowsingFeignClient;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@Slf4j
+@RequiredArgsConstructor
+public class GoogleSafeBrowsingService {
+
+    private static final String CLIENT_ID = "qrust-app";
+    private static final String CLIENT_VERSION = "1.0";
+
+    private static final List<String> THREAT_TYPES = List.of("MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE");
+    private static final List<String> PLATFORM_TYPES = List.of("ANY_PLATFORM");
+    private static final List<String> THREAT_ENTRY_TYPES = List.of("URL");
+
+    private final GoogleSafeBrowsingFeignClient googleSafeBrowsingFeignClient;
+
+    public boolean isUrlDangerous(String url) {
+        if (url == null || url.isEmpty() || !isValidUrl(url)) {
+            log.warn("유효하지 않은 URL 입력: {}", url);
+            throw new IllegalArgumentException("유효하지 않은 URL 형식입니다."); // TODO
+        }
+
+        try {
+            GoogleSafeBrowsingRequest request = buildRequest(url);
+            GoogleSafeBrowsingResponse response = googleSafeBrowsingFeignClient.checkUrl(request);
+            return hasThreatMatches(response);
+        } catch (Exception e) {
+            log.error("Google Safe Browsing API 호출 중 오류 발생: {}", e.getMessage(), e);
+            throw new RuntimeException("URL 검사 중 오류 발생", e); // TODO: Custom Exception으로 매핑
+        }
+    }
+
+    private GoogleSafeBrowsingRequest buildRequest(String url) {
+        var client = new GoogleSafeBrowsingRequest.Client();
+        client.setClientId(CLIENT_ID);
+        client.setClientVersion(CLIENT_VERSION);
+
+        var threatEntry = new GoogleSafeBrowsingRequest.ThreatInfo.ThreatEntry();
+        threatEntry.setUrl(url);
+
+        var threatInfo = new GoogleSafeBrowsingRequest.ThreatInfo();
+        threatInfo.setThreatTypes(THREAT_TYPES);
+        threatInfo.setPlatformTypes(PLATFORM_TYPES);
+        threatInfo.setThreatEntryTypes(THREAT_ENTRY_TYPES);
+        threatInfo.setThreatEntries(List.of(threatEntry));
+
+        var request = new GoogleSafeBrowsingRequest();
+        request.setClient(client);
+        request.setThreatInfo(threatInfo);
+
+        return request;
+    }
+
+    private boolean hasThreatMatches(GoogleSafeBrowsingResponse response) {
+        return response != null && response.getMatches() != null && !response.getMatches().isEmpty();
+    }
+
+    private boolean isValidUrl(String url) {
+        try {
+            new java.net.URL(url).toURI();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}

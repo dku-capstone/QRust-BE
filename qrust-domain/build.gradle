@@ -5,7 +5,6 @@ bootJar {
 jar {
     enabled = true
 }
-
 dependencies {
     implementation project(':qrust-common')
 }

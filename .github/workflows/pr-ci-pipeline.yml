@@ -4,11 +4,16 @@ on:
   pull_request:
     branches:
       - main
-      - dev
+      - develop
 
 jobs:
   build:
     runs-on: ubuntu-latest # Github Hosted Runner
+    env:
+      CRYPTO_AES_KEY: ${{ secrets.CRYPTO_AES_KEY }}
+      GOOGLE_SAFE_BROWSING_API_KEY: ${{ secrets.GOOGLE_SAFE_BROWSING_API_KEY }}
+      GOOGLE_SAFE_BROWSING_BASE_URL: ${{ secrets.GOOGLE_SAFE_BROWSING_BASE_URL }}
+
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
@@ -25,5 +30,6 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew clean test bootJar
+          ./gradlew clean test bootJar -DexcludeTags=minio
+
 

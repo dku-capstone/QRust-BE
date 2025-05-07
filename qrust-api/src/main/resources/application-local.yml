@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/qrust?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  web:
+    resources:
+      add-mappings: false
+
+crypto:
+  aes:
+    key: ${CRYPTO_AES_KEY}  # Base64 인코딩된 32바이트 키 (AES-256)
+
+google:
+  safe-browsing:
+    api:
+      key: ${GOOGLE_SAFE_BROWSING_API_KEY}
+      base-url: ${GOOGLE_SAFE_BROWSING_BASE_URL}
+
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucketName: qrust-bucket
