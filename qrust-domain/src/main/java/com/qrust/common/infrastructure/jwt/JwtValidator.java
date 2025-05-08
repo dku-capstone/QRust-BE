@@ -17,11 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtValidator {
     private final SecretKeyFactory secretKeyFactory;
-    private final SecretKey key = secretKeyFactory.createSecretKey();
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
+            Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
@@ -30,7 +29,7 @@ public class JwtValidator {
 
     public String getSubject(String token) {
         try {
-            return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getSubject();
+            return Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token).getPayload().getSubject();
         } catch (Exception e) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, INVALID_TOKEN);
         }
@@ -38,7 +37,7 @@ public class JwtValidator {
 
     public UserRole getRole(String token) {
         try{
-            Claims claims = Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
+            Claims claims = Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token).getPayload();
             String roleRaw = claims.get("role", String.class);
 
             return UserRole.valueOf(roleRaw);
@@ -48,6 +47,6 @@ public class JwtValidator {
     }
 
     public Instant getExpiration(String token) {
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getExpiration().toInstant();
+        return Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token).getPayload().getExpiration().toInstant();
     }
 }
