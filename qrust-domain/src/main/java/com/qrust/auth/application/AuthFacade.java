@@ -1,17 +1,23 @@
 package com.qrust.auth.application;
 
 import static com.qrust.exception.auth.ErrorMessages.EMAIL_ALREADY_EXISTS;
+import static com.qrust.exception.auth.ErrorMessages.INVALID_PW;
+import static com.qrust.exception.auth.ErrorMessages.WITHDRAW_USER;
 
+import com.qrust.auth.dto.LoginRequest;
 import com.qrust.auth.dto.SignUpRequest;
 import com.qrust.auth.infrastructure.TokenService;
+import com.qrust.auth.service.AuthService;
 import com.qrust.common.exception.CustomException;
 import com.qrust.common.exception.error.ErrorCode;
 import com.qrust.common.infrastructure.jwt.JwtProvider;
 import com.qrust.user.domain.entity.Password;
 import com.qrust.user.domain.entity.User;
+import com.qrust.user.domain.entity.vo.UserRole;
 import com.qrust.user.domain.service.PasswordService;
 import com.qrust.user.domain.service.UserService;
 import com.qrust.utils.PasswordHasher;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,6 +29,7 @@ public class AuthFacade {
     private final PasswordService passwordService;
     private final JwtProvider jwtProvider;
     private final TokenService tokenService;
+    private final AuthService authService;
 
     @Transactional
     public void signUp(SignUpRequest request) {
@@ -43,6 +50,31 @@ public class AuthFacade {
         String rtKey = tokenService.getRTKey(user.getId());
 
         // TODO: 회원가입시 로그인까지?
-        tokenService.saveRT(rtKey,rt);
+        tokenService.saveRT(rtKey, rt);
+    }
+
+    @Transactional
+    public void login(LoginRequest request, HttpServletResponse response) {
+        User user = userService.getByEmail(request.email());
+
+        if (user.isWithdraw()) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, WITHDRAW_USER);
+        }
+
+        Password password = passwordService.getByUserId(user.getId());
+        String hashed = PasswordHasher.hash(request.password(), password.getSalt());
+
+        if (!hashed.equals(password.getPwd())) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, INVALID_PW);
+        }
+
+        UserRole userRole = user.getUserRole();
+        String accessToken = jwtProvider.generateAccessToken(user.getId(), userRole);
+        String refreshToken = jwtProvider.generateRefreshToken(user.getId(), userRole);
+
+        String rtKey = tokenService.getRTKey(user.getId());
+        tokenService.saveRT(rtKey, refreshToken);
+
+        authService.login(accessToken, refreshToken, response);
     }
 }
