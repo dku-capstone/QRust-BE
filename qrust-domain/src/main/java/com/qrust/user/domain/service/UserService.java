@@ -8,6 +8,7 @@ import com.qrust.user.domain.entity.User;
 import com.qrust.user.domain.repository.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +17,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
 
+    @Transactional
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
     @Transactional(readOnly = true)
     public boolean existByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 
     @Transactional
-    public User save(User user) {
-        return userRepository.save(user);
+    public User getByEmail(String email) {
+        return findByEmail(email)
+                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INPUT_VALUE, USER_NOT_FOUND));
+    }
+
+    @Transactional
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Transactional(readOnly = true)
