@@ -32,15 +32,16 @@ public class JwtProvider {
                 .compact();
     }
 
-    public String generateRefreshToken(Long userId) {
-        String refreshToken = UUID.randomUUID().toString();
-        String key = "RT::" + refreshToken + "-v1";
+    public String generateRefreshToken(Long userId, UserRole role) {
+        Instant now = Instant.now();
+        Instant expiry = now.plusMillis(JwtConfig.REFRESH_TOKEN_EXPIRATION_TIME);
 
-        long expirationMillis = JwtConfig.REFRESH_TOKEN_EXPIRATION_TIME;
-        long expirationSeconds = TimeUnit.MILLISECONDS.toSeconds(expirationMillis);
-
-        redisTemplate.opsForValue().set(key, userId.toString(), expirationSeconds, TimeUnit.SECONDS);
-
-        return refreshToken;
+        return Jwts.builder()
+                .subject(userId.toString())
+                .issuedAt(Date.from(now))
+                .expiration(Date.from(expiry))
+                .claim("role", role.name())
+                .signWith(key)
+                .compact();
     }
 }
