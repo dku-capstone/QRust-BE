@@ -3,6 +3,7 @@ package com.qrust.common.infrastructure.jwt;
 import static com.qrust.exception.auth.ErrorMessages.INVALID_TOKEN;
 
 import com.qrust.auth.infrastructure.TokenService;
+import com.qrust.auth.service.AuthService;
 import com.qrust.common.config.JwtConfig;
 import com.qrust.common.exception.CustomException;
 import com.qrust.common.exception.error.ErrorCode;
@@ -30,6 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtValidator jwtValidator;
     private final UserService userService;
     private final TokenService tokenService;
+    private final AuthService authService;
 
     private static final int AT_COOKIE_MAX_AGE = (int) (JwtConfig.ACCESS_TOKEN_EXPIRATION_TIME / 1000);
     private static final int RT_COOKIE_MAX_AGE = (int) (JwtConfig.REFRESH_TOKEN_EXPIRATION_TIME / 1000);
@@ -51,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String rtKey = tokenService.getRTKey(userId);
 
             if (!tokenService.isValid(rtKey, refreshToken)) {
-                // TODO: 로그아웃
+                authService.logout(response);
                 throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, INVALID_TOKEN);
             }
             UserRole userRole = user.getUserRole();
