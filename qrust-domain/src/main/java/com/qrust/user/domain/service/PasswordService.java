@@ -8,7 +8,6 @@ import com.qrust.user.domain.entity.Password;
 import com.qrust.user.domain.repository.PasswordRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,7 @@ public class PasswordService {
     @Transactional(readOnly = true)
     public Password getByUserId(Long userId) {
         return findByUserId(userId)
-                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INPUT_VALUE,PASSWORD_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INPUT_VALUE, PASSWORD_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)

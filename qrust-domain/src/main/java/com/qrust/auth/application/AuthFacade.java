@@ -19,7 +19,7 @@ public class AuthFacade {
     private final UserService userService;
     private final PasswordService passwordService;
 
-    public void signUp(SignUpRequest request) {
+    public void signUp(SignUpRequest request) { //TODO 메서드 분리
         if (userService.existByEmail(request.email())) {
             throw new CustomException(ErrorCode.NOT_FOUND_END_POINT, EMAIL_ALREADY_EXISTS);
         }
