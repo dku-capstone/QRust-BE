@@ -5,18 +5,14 @@ import com.qrust.user.domain.entity.vo.UserRole;
 import io.jsonwebtoken.Jwts;
 import java.time.Instant;
 import java.util.Date;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
     private final SecretKeyFactory secretKeyFactory;
-    private final StringRedisTemplate redisTemplate;
     private final SecretKey key = secretKeyFactory.createSecretKey();
 
     public String generateAccessToken(Long userId, UserRole role) {
