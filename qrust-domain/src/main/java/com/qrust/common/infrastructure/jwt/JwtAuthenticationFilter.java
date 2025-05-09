@@ -44,9 +44,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String accessToken = getCookieValue(request, "access_token");
             String refreshToken = getCookieValue(request, "refresh_token");
 
-            if (isValidAccessToken(accessToken)) {
+            if (isValidToken(accessToken)) {
                 applyAuthentication(accessToken);
-            } else if (isValidRefreshToken(refreshToken)) {
+            } else if (isValidToken(refreshToken)) {
                 reissueTokensAndAuthenticate(refreshToken, response);
             }
         } catch (Exception e) {
@@ -57,11 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private boolean isValidAccessToken(String token) {
-        return token != null && jwtValidator.validateToken(token);
-    }
-
-    private boolean isValidRefreshToken(String token) {
+    private boolean isValidToken(String token) {
         return token != null && jwtValidator.validateToken(token);
     }
 
