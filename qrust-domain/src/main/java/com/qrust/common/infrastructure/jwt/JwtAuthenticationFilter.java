@@ -57,8 +57,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String newAccessToken = jwtProvider.generateAccessToken(Long.parseLong(userId), user.getUserRole());
             String newRefreshToken = jwtProvider.generateRefreshToken(); // RTR
-
-            tokenService.saveRT(rtKey, userId);
+            String newRtKey = tokenService.getRTKey(newRefreshToken);
+            tokenService.saveRT(newRtKey, userId);
+            tokenService.delete(rtKey);
 
             addCookie(response, "access_token", newAccessToken, AT_COOKIE_MAX_AGE);
             addCookie(response, "refresh_token", newRefreshToken, RT_COOKIE_MAX_AGE);
