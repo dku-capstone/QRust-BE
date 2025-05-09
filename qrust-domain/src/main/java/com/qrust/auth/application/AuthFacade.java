@@ -11,11 +11,14 @@ import com.qrust.auth.service.AuthService;
 import com.qrust.common.exception.CustomException;
 import com.qrust.common.exception.error.ErrorCode;
 import com.qrust.common.infrastructure.jwt.JwtProvider;
+import com.qrust.common.infrastructure.jwt.JwtValidator;
 import com.qrust.user.domain.entity.Password;
 import com.qrust.user.domain.entity.User;
 import com.qrust.user.domain.entity.vo.UserRole;
 import com.qrust.user.domain.service.PasswordService;
 import com.qrust.user.domain.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,7 @@ public class AuthFacade {
     private final UserService userService;
     private final PasswordService passwordService;
     private final JwtProvider jwtProvider;
+    private final JwtValidator jwtValidator;
     private final TokenService tokenService;
     private final AuthService authService;
     private final PasswordEncoder passwordEncoder;
@@ -74,5 +78,24 @@ public class AuthFacade {
         tokenService.saveRT(rtKey, refreshToken);
 
         authService.login(accessToken, refreshToken, response);
+    }
+
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("refresh_token".equals(cookie.getName())) {
+                    String refreshToken = cookie.getValue();
+                    if (refreshToken != null) {
+                        String userId = jwtValidator.getSubject(refreshToken);
+                        String rtKey = tokenService.getRTKey(Long.parseLong(userId));
+                        tokenService.delete(rtKey);
+                    }
+                    break;
+                }
+            }
+        }
+
+        authService.logout(response);
     }
 }

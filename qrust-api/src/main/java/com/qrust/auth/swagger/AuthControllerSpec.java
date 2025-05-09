@@ -6,6 +6,7 @@ import com.qrust.common.dto.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,13 @@ public interface AuthControllerSpec {
     ApiResponse<Boolean> login(
             @Parameter(description = "로그인 정보")
             @RequestBody LoginRequest request,
+            HttpServletResponse response
+    );
+
+    @Operation(summary = "로그아웃", description = "JWT 리프레시 토큰 삭제 및 쿠키 초기화")
+    @PostMapping("/logout")
+    ApiResponse<Boolean> logout(
+            HttpServletRequest request,
             HttpServletResponse response
     );
 }
