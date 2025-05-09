@@ -2,7 +2,6 @@ package com.qrust.user.domain.repository;
 
 import com.qrust.user.domain.entity.User;
 import java.util.Optional;
-import jdk.jfr.Registered;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
