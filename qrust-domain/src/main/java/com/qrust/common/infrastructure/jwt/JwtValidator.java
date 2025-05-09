@@ -9,7 +9,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import java.time.Instant;
-import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -29,24 +28,27 @@ public class JwtValidator {
 
     public String getSubject(String token) {
         try {
-            return Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token).getPayload().getSubject();
+            return Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token)
+                    .getPayload().getSubject();
         } catch (Exception e) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, INVALID_TOKEN);
         }
     }
 
     public UserRole getRole(String token) {
-        try{
-            Claims claims = Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token).getPayload();
+        try {
+            Claims claims = Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build()
+                    .parseSignedClaims(token).getPayload();
             String roleRaw = claims.get("role", String.class);
 
             return UserRole.valueOf(roleRaw);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, INVALID_TOKEN);
         }
     }
 
     public Instant getExpiration(String token) {
-        return Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token).getPayload().getExpiration().toInstant();
+        return Jwts.parser().verifyWith(secretKeyFactory.createSecretKey()).build().parseSignedClaims(token)
+                .getPayload().getExpiration().toInstant();
     }
 }

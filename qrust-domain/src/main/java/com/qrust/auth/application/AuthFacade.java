@@ -48,12 +48,12 @@ public class AuthFacade {
         passwordService.save(Password.of(user.getId(), encodedPassword));
 
         String at = jwtProvider.generateAccessToken(user.getId(), user.getUserRole());
-        String rt = jwtProvider.generateRefreshToken(user.getId(), user.getUserRole());
+        String rt = jwtProvider.generateRefreshToken();
 
-        String rtKey = tokenService.getRTKey(user.getId());
+        String rtKey = tokenService.getRTKey(rt);
 
         // TODO: 회원가입시 로그인까지?
-        tokenService.saveRT(rtKey, rt);
+        tokenService.saveRT(rtKey, user.getId().toString());
     }
 
     @Transactional
@@ -72,10 +72,10 @@ public class AuthFacade {
 
         UserRole userRole = user.getUserRole();
         String accessToken = jwtProvider.generateAccessToken(user.getId(), userRole);
-        String refreshToken = jwtProvider.generateRefreshToken(user.getId(), userRole);
+        String refreshToken = jwtProvider.generateRefreshToken();
 
-        String rtKey = tokenService.getRTKey(user.getId());
-        tokenService.saveRT(rtKey, refreshToken);
+        String rtKey = tokenService.getRTKey(refreshToken);
+        tokenService.saveRT(rtKey, user.getId().toString());
 
         authService.login(accessToken, refreshToken, response);
     }
@@ -87,8 +87,7 @@ public class AuthFacade {
                 if ("refresh_token".equals(cookie.getName())) {
                     String refreshToken = cookie.getValue();
                     if (refreshToken != null) {
-                        String userId = jwtValidator.getSubject(refreshToken);
-                        String rtKey = tokenService.getRTKey(Long.parseLong(userId));
+                        String rtKey = tokenService.getRTKey(refreshToken);
                         tokenService.delete(rtKey);
                     }
                     break;

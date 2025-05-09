@@ -1,8 +1,7 @@
 package com.qrust.auth.infrastructure;
 
-import com.qrust.common.infrastructure.jwt.JwtValidator;
+import com.qrust.common.config.JwtConfig;
 import java.time.Duration;
-import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -10,27 +9,31 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class TokenService {
-    private final JwtValidator jwtValidator;
     private final StringRedisTemplate redisTemplate;
 
     private static final String RT_PREFIX = "RT:";
 
-    public void saveRT(String key, String token) {
-        Instant expiry = jwtValidator.getExpiration(token);
-        Duration duration = Duration.between(Instant.now(), expiry);
-        redisTemplate.opsForValue().set(key, token, duration);
+    public void saveRT(String key, String userId) {
+        Duration duration = Duration.ofMillis(JwtConfig.REFRESH_TOKEN_EXPIRATION_TIME);
+        redisTemplate.opsForValue().set(key, userId, duration);
     }
 
-    public boolean isValid(String key, String token) {
+    public boolean isValid(String key, String userId) {
         String stored = redisTemplate.opsForValue().get(key);
-        return token.equals(stored);
+        return userId.equals(stored);
     }
 
     public void delete(String key) {
         redisTemplate.delete(key);
     }
 
-    public String getRTKey(Long userId) {
-        return RT_PREFIX + userId;
+    public String getUserId(String refreshToken) {
+        String key = getRTKey(refreshToken);
+        return redisTemplate.opsForValue().get(key);
     }
+
+    public String getRTKey(String token) {
+        return RT_PREFIX + token;
+    }
+
 }

@@ -8,7 +8,6 @@ import com.qrust.common.config.JwtConfig;
 import com.qrust.common.exception.CustomException;
 import com.qrust.common.exception.error.ErrorCode;
 import com.qrust.user.domain.entity.User;
-import com.qrust.user.domain.entity.vo.UserRole;
 import com.qrust.user.domain.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -47,20 +46,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (accessToken != null && jwtValidator.validateToken(accessToken)) {
             applyAuthentication(accessToken);
         } else if (refreshToken != null && jwtValidator.validateToken(refreshToken)) {
-            String userIdStr = jwtValidator.getSubject(refreshToken);
-            Long userId = Long.parseLong(userIdStr);
-            User user = userService.getById(userId);
-            String rtKey = tokenService.getRTKey(userId);
+            String userId = tokenService.getUserId(refreshToken);
+            User user = userService.getById(Long.parseLong(userId));
+            String rtKey = tokenService.getRTKey(refreshToken);
 
-            if (!tokenService.isValid(rtKey, refreshToken)) {
+            if (!tokenService.isValid(rtKey, userId)) {
                 authService.logout(response);
                 throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, INVALID_TOKEN);
             }
-            UserRole userRole = user.getUserRole();
-            String newAccessToken = jwtProvider.generateAccessToken(userId, userRole);
-            String newRefreshToken = jwtProvider.generateRefreshToken(userId, userRole); // RTR
 
-            tokenService.saveRT(rtKey, newRefreshToken);
+            String newAccessToken = jwtProvider.generateAccessToken(Long.parseLong(userId), user.getUserRole());
+            String newRefreshToken = jwtProvider.generateRefreshToken(); // RTR
+
+            tokenService.saveRT(rtKey, userId);
 
             addCookie(response, "access_token", newAccessToken, AT_COOKIE_MAX_AGE);
             addCookie(response, "refresh_token", newRefreshToken, RT_COOKIE_MAX_AGE);
