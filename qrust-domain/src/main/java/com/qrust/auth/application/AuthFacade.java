@@ -16,10 +16,10 @@ import com.qrust.user.domain.entity.User;
 import com.qrust.user.domain.entity.vo.UserRole;
 import com.qrust.user.domain.service.PasswordService;
 import com.qrust.user.domain.service.UserService;
-import com.qrust.utils.PasswordHasher;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,6 +30,7 @@ public class AuthFacade {
     private final JwtProvider jwtProvider;
     private final TokenService tokenService;
     private final AuthService authService;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public void signUp(SignUpRequest request) {
@@ -39,10 +40,8 @@ public class AuthFacade {
 
         User user = userService.save(User.of(request));
 
-        String salt = PasswordHasher.generateSalt();
-        String hashedPassword = PasswordHasher.hash(request.password(), salt);
-
-        passwordService.save(Password.of(user.getId(), salt, hashedPassword));
+        String encodedPassword = passwordEncoder.encode(request.password());
+        passwordService.save(Password.of(user.getId(), encodedPassword));
 
         String at = jwtProvider.generateAccessToken(user.getId(), user.getUserRole());
         String rt = jwtProvider.generateRefreshToken(user.getId(), user.getUserRole());
@@ -62,9 +61,8 @@ public class AuthFacade {
         }
 
         Password password = passwordService.getByUserId(user.getId());
-        String hashed = PasswordHasher.hash(request.password(), password.getSalt());
 
-        if (!hashed.equals(password.getPwd())) {
+        if (!passwordEncoder.matches(request.password(), password.getPwd())) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, INVALID_PW);
         }
 

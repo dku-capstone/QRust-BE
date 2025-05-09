@@ -25,23 +25,18 @@ public class Password extends BaseEntity {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "salt", nullable = false)
-    private String salt;
-
     @Column(name = "password", nullable = false)
     private String pwd;
 
     @Builder
-    public Password(Long userId, String salt, String pwd) {
+    public Password(Long userId, String pwd) {
         this.userId = userId;
-        this.salt = salt;
         this.pwd = pwd;
     }
 
-    public static Password of (Long userId, String salt, String pwd){
+    public static Password of(Long userId, String pwd) {
         return Password.builder()
                 .userId(userId)
-                .salt(salt)
                 .pwd(pwd)
                 .build();
     }
