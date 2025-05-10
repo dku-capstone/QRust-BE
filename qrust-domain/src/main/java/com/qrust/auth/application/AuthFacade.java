@@ -39,7 +39,7 @@ public class AuthFacade {
     @Transactional
     public void signUp(SignUpRequest request) {
         if (userService.existByEmail(request.email())) {
-            throw new CustomException(ErrorCode.NOT_FOUND_END_POINT, EMAIL_ALREADY_EXISTS);
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, EMAIL_ALREADY_EXISTS);
         }
 
         User user = userService.save(User.of(request));
