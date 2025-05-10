@@ -31,7 +31,6 @@ public class AuthFacade {
     private final UserService userService;
     private final PasswordService passwordService;
     private final JwtProvider jwtProvider;
-    private final JwtValidator jwtValidator;
     private final TokenService tokenService;
     private final AuthService authService;
     private final PasswordEncoder passwordEncoder;
