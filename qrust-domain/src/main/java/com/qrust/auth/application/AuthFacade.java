@@ -47,13 +47,13 @@ public class AuthFacade {
         String encodedPassword = passwordEncoder.encode(request.password());
         passwordService.save(Password.of(user.getId(), encodedPassword));
 
-        String at = jwtProvider.generateAccessToken(user.getId(), user.getUserRole());
-        String rt = jwtProvider.generateRefreshToken();
-
-        String rtKey = tokenService.getRTKey(rt);
-
-        // TODO: 회원가입시 로그인까지?
-        tokenService.saveRT(rtKey, user.getId().toString());
+//        // TODO: 회원가입시 로그인까지?
+//        String at = jwtProvider.generateAccessToken(user.getId(), user.getUserRole());
+//        String rt = jwtProvider.generateRefreshToken();
+//
+//        String rtKey = tokenService.getRTKey(rt);
+//
+//        tokenService.saveRT(rtKey, user.getId().toString());
     }
 
     @Transactional
