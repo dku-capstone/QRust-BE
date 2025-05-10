@@ -75,8 +75,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         User user = userService.getById(Long.parseLong(userId));
-        issueNewTokens(response, user, rtKey);
-        applyAuthentication(jwtProvider.generateAccessToken(user.getId(), user.getUserRole()));
+        String newAccessToken = issueNewTokens(response, user, rtKey);
+        applyAuthentication(newAccessToken);
     }
 
     private void logoutAndProceed(HttpServletResponse response) {
@@ -90,7 +90,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         response.getWriter().write("{\"code\":\"INVALID_TOKEN\",\"message\":\"" + INVALID_TOKEN + "\"}");
     }
 
-    private void issueNewTokens(HttpServletResponse response, User user, String oldRtKey) {
+    private String issueNewTokens(HttpServletResponse response, User user, String oldRtKey) {
         String newAccessToken = jwtProvider.generateAccessToken(user.getId(), user.getUserRole());
         String newRefreshToken = jwtProvider.generateRefreshToken(); // RTR
 
@@ -100,6 +100,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         addCookie(response, "access_token", newAccessToken, AT_COOKIE_MAX_AGE);
         addCookie(response, "refresh_token", newRefreshToken, RT_COOKIE_MAX_AGE);
+
+        return newAccessToken;
     }
 
     private void applyAuthentication(String token) {
