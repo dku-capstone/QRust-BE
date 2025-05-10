@@ -13,6 +13,7 @@ jobs:
       CRYPTO_AES_KEY: ${{ secrets.CRYPTO_AES_KEY }}
       GOOGLE_SAFE_BROWSING_API_KEY: ${{ secrets.GOOGLE_SAFE_BROWSING_API_KEY }}
       GOOGLE_SAFE_BROWSING_BASE_URL: ${{ secrets.GOOGLE_SAFE_BROWSING_BASE_URL }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     steps:
       - name: Checkout Source
@@ -31,5 +32,3 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew clean test bootJar -DexcludeTags=minio
-
-
