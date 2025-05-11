@@ -5,7 +5,6 @@ import static com.qrust.exception.auth.ErrorMessages.INVALID_PW;
 import static com.qrust.exception.auth.ErrorMessages.WITHDRAW_USER;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -25,7 +24,6 @@ import com.qrust.user.domain.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,9 +53,32 @@ public class AuthFacadeTest {
     }
 
     @Test
-    void signUp_이미_존재하는_이메일이면_예외발생() {
+    void 정상_회원가입_성공() {
         // given
-        SignUpRequest request = new SignUpRequest("test@email.com", "qrust","password123");
+        SignUpRequest request = new SignUpRequest("test@email.com", "qrust", "password123");
+
+        when(userService.existByEmail(request.email())).thenReturn(false);
+
+        User user = mock(User.class);
+        when(userService.save(any(User.class))).thenReturn(user);
+        when(user.getId()).thenReturn(1L);
+
+        String encodedPw = "encodedPassword123";
+        when(passwordEncoder.encode(request.password())).thenReturn(encodedPw);
+
+        // when
+        authFacade.signUp(request);
+
+        // then
+        verify(userService).existByEmail(request.email());
+        verify(userService).save(any(User.class));
+        verify(passwordEncoder).encode(request.password());
+    }
+
+    @Test
+    void 회원가입시_이미_존재하는_이메일이면_예외발생() {
+        // given
+        SignUpRequest request = new SignUpRequest("test@email.com", "qrust", "password123");
         when(userService.existByEmail(request.email())).thenReturn(true);
 
         // when & then
@@ -69,7 +90,7 @@ public class AuthFacadeTest {
     }
 
     @Test
-    void login_정상_로그인_성공() {
+    void 정상_로그인_성공() {
         // given
         LoginRequest request = new LoginRequest("test@email.com", "password123");
 
@@ -102,7 +123,7 @@ public class AuthFacadeTest {
 
 
     @Test
-    void login_탈퇴한_유저는_예외발생() {
+    void 로그인시_탈퇴한_유저는_예외발생() {
         // given
         LoginRequest request = new LoginRequest("withdrawn@email.com", "pw123");
         User user = mock(User.class);
@@ -118,7 +139,7 @@ public class AuthFacadeTest {
     }
 
     @Test
-    void login_비밀번호_불일치시_예외발생() {
+    void 로그인시_비밀번호_불일치_예외발생() {
         // given
         LoginRequest request = new LoginRequest("email@test.com", "wrongpw");
         User user = mock(User.class);
@@ -138,7 +159,7 @@ public class AuthFacadeTest {
     }
 
     @Test
-    void logout_refresh_token이_있으면_삭제됨() {
+    void 로그아웃시_refresh_token이_있으면_삭제됨() {
         // given
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
@@ -156,7 +177,7 @@ public class AuthFacadeTest {
     }
 
     @Test
-    void logout_refresh_token이_없으면_아무것도_안함() {
+    void 로그아웃시_refresh_token이_없으면_아무것도_안함() {
         // given
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
