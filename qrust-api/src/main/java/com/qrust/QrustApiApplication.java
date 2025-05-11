@@ -12,5 +12,4 @@ public class QrustApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(QrustApiApplication.class, args);
     }
-
 }
