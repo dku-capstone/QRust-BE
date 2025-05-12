@@ -6,9 +6,9 @@ import static org.mockito.BDDMockito.given;
 
 import com.qrust.user.domain.entity.vo.UserRole;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.Jwts;
 import java.util.UUID;
 import javax.crypto.SecretKey;
 import org.junit.jupiter.api.Test;
