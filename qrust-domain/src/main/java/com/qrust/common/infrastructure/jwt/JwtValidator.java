@@ -2,8 +2,8 @@ package com.qrust.common.infrastructure.jwt;
 
 import static com.qrust.exception.auth.ErrorMessages.INVALID_TOKEN;
 
-import com.qrust.common.exception.CustomException;
-import com.qrust.common.exception.error.ErrorCode;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import com.qrust.user.domain.entity.vo.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

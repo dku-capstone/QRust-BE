@@ -1,10 +1,9 @@
-package com.qrust.auth.resolver;
+package com.qrust.annotation.user;
 
 import static com.qrust.exception.auth.ErrorMessages.EMPTY_USER;
 
-import com.qrust.annotation.user.LoginUser;
-import com.qrust.common.exception.CustomException;
-import com.qrust.common.exception.error.ErrorCode;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

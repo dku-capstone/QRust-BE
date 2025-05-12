@@ -1,6 +1,6 @@
 package com.qrust.qrcode.application;
 
-import com.qrust.common.dto.PageResponse;
+import com.qrust.dto.PageResponse;
 import com.qrust.qrcode.domain.entity.QrCode;
 import com.qrust.qrcode.domain.repository.QrCodeQueryRepository;
 import com.qrust.qrcode.domain.repository.QrCodeRepository;

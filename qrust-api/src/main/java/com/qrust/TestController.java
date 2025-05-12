@@ -1,8 +1,8 @@
 package com.qrust;
 
-import com.qrust.common.dto.ApiResponse;
-import com.qrust.common.exception.CustomException;
-import com.qrust.common.exception.error.ErrorCode;
+import com.qrust.dto.ApiResponse;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
