@@ -31,7 +31,6 @@ public class AuthFacade {
     private final UserService userService;
     private final PasswordService passwordService;
     private final JwtProvider jwtProvider;
-    private final JwtValidator jwtValidator;
     private final TokenService tokenService;
     private final AuthService authService;
     private final PasswordEncoder passwordEncoder;
@@ -39,7 +38,7 @@ public class AuthFacade {
     @Transactional
     public void signUp(SignUpRequest request) {
         if (userService.existByEmail(request.email())) {
-            throw new CustomException(ErrorCode.NOT_FOUND_END_POINT, EMAIL_ALREADY_EXISTS);
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, EMAIL_ALREADY_EXISTS);
         }
 
         User user = userService.save(User.of(request));
@@ -47,13 +46,13 @@ public class AuthFacade {
         String encodedPassword = passwordEncoder.encode(request.password());
         passwordService.save(Password.of(user.getId(), encodedPassword));
 
-        String at = jwtProvider.generateAccessToken(user.getId(), user.getUserRole());
-        String rt = jwtProvider.generateRefreshToken();
-
-        String rtKey = tokenService.getRTKey(rt);
-
-        // TODO: 회원가입시 로그인까지?
-        tokenService.saveRT(rtKey, user.getId().toString());
+//        // TODO: 회원가입시 로그인까지?
+//        String at = jwtProvider.generateAccessToken(user.getId(), user.getUserRole());
+//        String rt = jwtProvider.generateRefreshToken();
+//
+//        String rtKey = tokenService.getRTKey(rt);
+//
+//        tokenService.saveRT(rtKey, user.getId().toString());
     }
 
     @Transactional
