@@ -26,22 +26,16 @@ public class QrCodeGeneratorService {
         //TODO
         // Title 중복 검증
 
-
         // 보안 QR 코드 생성
         byte[] qrCodeBytes = qrCodeGenerator.generateQrCode(qrCodeData);
 
         // QR 코드 이미지 minio 업로드
         String qrCodeImageUrl = qrCodeUpload.uploadQrCodeImage(qrCodeBytes);
 
-        //TODO
-        // User 연동
-
         QrCodeImage qrCodeImage = new QrCodeImage(null, qrCodeImageUrl);
 
-        //FIXME
-        // 1111L -> userId
         QrCode qrCode = QrCode.builder()
-                .userId(1111L)
+                .userId(userId)
                 .qrCodeData(qrCodeData)
                 .qrCodeImage(qrCodeImage)
                 .build();

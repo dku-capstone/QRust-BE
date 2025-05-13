@@ -1,6 +1,6 @@
-package com.qrust.common.exception;
+package com.qrust.exception;
 
-import com.qrust.common.exception.error.ErrorCode;
+import com.qrust.exception.error.ErrorCode;
 import lombok.Getter;
 
 @Getter

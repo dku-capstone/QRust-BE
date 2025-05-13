@@ -1,4 +1,4 @@
-package com.qrust.common.dto;
+package com.qrust.dto;
 
 import java.util.List;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,6 @@
 package com.qrust.recognize.swagger;
 
-import com.qrust.common.dto.ApiResponse;
+import com.qrust.dto.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -2,8 +2,8 @@ package com.qrust.user.domain.service;
 
 import static com.qrust.exception.user.ErrorMessages.PASSWORD_NOT_FOUND;
 
-import com.qrust.common.exception.CustomException;
-import com.qrust.common.exception.error.ErrorCode;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import com.qrust.user.domain.entity.Password;
 import com.qrust.user.domain.repository.PasswordRepository;
 import java.util.Optional;

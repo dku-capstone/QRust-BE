@@ -1,6 +1,5 @@
-package com.qrust.common.dto;
+package com.qrust.dto;
 
-import com.qrust.common.dto.ApiResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

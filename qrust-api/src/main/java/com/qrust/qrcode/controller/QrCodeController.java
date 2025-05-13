@@ -1,7 +1,8 @@
 package com.qrust.qrcode.controller;
 
-import com.qrust.common.dto.ApiResponse;
-import com.qrust.common.dto.PageResponse;
+import com.qrust.annotation.user.LoginUser;
+import com.qrust.dto.ApiResponse;
+import com.qrust.dto.PageResponse;
 import com.qrust.qrcode.application.QrCodeCommandService;
 import com.qrust.qrcode.application.QrCodeGeneratorService;
 import com.qrust.qrcode.application.QrCodeQueryService;
@@ -32,18 +33,14 @@ public class QrCodeController implements QrCodeControllerSpec {
     private final QrCodeQueryService qrCodeQueryService;
     private final QrCodeCommandService qrCodeCommandService;
 
-    //TODO
-    // Authenticated User 연동 + UserDetail -> userId 전달
 
     @PostMapping("/generate")
-    public ApiResponse<?> generateQrCode(@RequestBody QrCodeGenerateRequestDto dto, Long userId) {
+    public ApiResponse<?> generateQrCode(@RequestBody QrCodeGenerateRequestDto dto, @LoginUser Long userId) {
         String qrCodeImageUrl = qrCodeGeneratorService.generateQrCode(dto.toQrCodeData(), userId);
 
         return ApiResponse.created(qrCodeImageUrl);
     }
 
-    //TODO
-    // QR 코드의 Status 필드가 expired 인 경우 분기 처리
 
     // 목록 조회(페이징)
     @GetMapping("/user/{userId}")

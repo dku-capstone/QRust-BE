@@ -1,7 +1,7 @@
 package com.qrust.qrcode.controller.swagger;
 
-import com.qrust.common.dto.ApiResponse;
-import com.qrust.common.dto.PageResponse;
+import com.qrust.dto.ApiResponse;
+import com.qrust.dto.PageResponse;
 import com.qrust.qrcode.dto.request.QrCodeGenerateRequestDto;
 import com.qrust.qrcode.dto.request.QrCodeSearchRequestDto;
 import com.qrust.qrcode.dto.request.QrCodeUpdateRequestDto;

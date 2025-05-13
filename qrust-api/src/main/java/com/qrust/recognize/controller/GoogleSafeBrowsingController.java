@@ -1,6 +1,6 @@
 package com.qrust.recognize.controller;
 
-import com.qrust.common.dto.ApiResponse;
+import com.qrust.dto.ApiResponse;
 import com.qrust.external.google.application.GoogleSafeBrowsingService;
 import com.qrust.recognize.swagger.GoogleSafeBrowsingControllerSpec;
 import lombok.RequiredArgsConstructor;

@@ -4,7 +4,7 @@ import com.qrust.auth.application.AuthFacade;
 import com.qrust.auth.dto.LoginRequest;
 import com.qrust.auth.dto.SignUpRequest;
 import com.qrust.auth.swagger.AuthControllerSpec;
-import com.qrust.common.dto.ApiResponse;
+import com.qrust.dto.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
