@@ -1,4 +1,4 @@
-package com.qrust.external.ai.application.dto;
+package com.qrust.external.ai.application;
 
 import com.qrust.external.ai.application.dto.request.AiModelRequest;
 import com.qrust.external.ai.application.dto.response.AiModelResponse;
