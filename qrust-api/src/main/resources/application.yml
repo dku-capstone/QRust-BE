@@ -29,3 +29,7 @@ minio:
 
 jwt:
   secret: ${JWT_SECRET}
+
+ai:
+  model:
+    base-url: ${AI_MODEL_BASE_URL}
