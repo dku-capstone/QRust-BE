@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/v1/recognize")
 public interface AiModelControllerSpec {
 
+    /**
+     * Analyzes the given URL using an AI model to determine if it is malicious.
+     *
+     * @param url the URL to be evaluated for risk
+     * @return an ApiResponse containing true if the URL is malicious, or false if it is safe
+     */
     @Operation(summary = "AI 모델로 URL 위험 여부 확인", description = "입력된 URL을 AI 모델로 분석해 악성 여부 판별 (true: 악성, false: 안전)")
     @PostMapping("/ai-model")
     ApiResponse<Boolean> checkUrlByAiModel(

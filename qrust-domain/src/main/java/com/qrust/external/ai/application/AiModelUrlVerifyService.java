@@ -12,6 +12,12 @@ public class AiModelUrlVerifyService {
 
     private final AiModelFeignClient aiModelFeignClient;
 
+    /**
+     * Verifies the given URL using an external AI model and returns the verification result.
+     *
+     * @param url the URL to be verified
+     * @return the integer result from the AI model indicating the verification outcome
+     */
     public int verifyUrl(String url) {
         AiModelRequest request = new AiModelRequest(url);
         AiModelResponse response = aiModelFeignClient.verifyUrl(request);

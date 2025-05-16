@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 )
 public interface AiModelFeignClient {
 
+    /****
+     * Sends a POST request to the external AI model service to verify the provided URL.
+     *
+     * @param request the request payload containing URL and related data for verification
+     * @return the response from the AI model service with verification results
+     */
     @PostMapping(value = "/api/v1/ai/verify", consumes = MediaType.APPLICATION_JSON_VALUE)
     AiModelResponse verifyUrl(@RequestBody AiModelRequest request);
 }
