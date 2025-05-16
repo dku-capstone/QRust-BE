@@ -1,6 +1,8 @@
 package com.qrust.external.ai.infrastructure;
 
 import com.qrust.common.infrastructure.feign.FeignConfig;
+import com.qrust.external.ai.application.dto.request.AiModelRequest;
+import com.qrust.external.ai.application.dto.response.AiModelResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
