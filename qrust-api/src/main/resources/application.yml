@@ -26,6 +26,7 @@ minio:
   access-key: minioadmin
   secret-key: minioadmin
   bucketName: qrust-bucket
+  prefix: ${DOMAIN_ADDRESS}
 
 jwt:
   secret: ${JWT_SECRET}
@@ -33,6 +34,3 @@ jwt:
 ai:
   model:
     base-url: ${AI_MODEL_BASE_URL}
-
-web:
-  url: ${DOMAIN_ADDRESS}
