@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.qrust.common.exception.CustomException;
-import com.qrust.common.exception.error.ErrorCode;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import com.qrust.user.domain.entity.vo.UserRole;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
