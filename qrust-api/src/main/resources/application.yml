@@ -33,3 +33,6 @@ jwt:
 ai:
   model:
     base-url: ${AI_MODEL_BASE_URL}
+
+web:
+  url: ${DOMAIN_ADDRESS}
