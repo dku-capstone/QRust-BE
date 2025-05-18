@@ -15,6 +15,7 @@ jobs:
       GOOGLE_SAFE_BROWSING_BASE_URL: ${{ secrets.GOOGLE_SAFE_BROWSING_BASE_URL }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       AI_MODEL_BASE_URL: ${{ secrets.AI_MODEL_BASE_URL }}
+      DOMAIN_ADDRESS: ${{ secrets.DOMAIN_ADDRESS }}
 
     steps:
       - name: Checkout Source

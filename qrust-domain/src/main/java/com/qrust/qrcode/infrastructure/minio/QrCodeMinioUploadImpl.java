@@ -33,7 +33,7 @@ public class QrCodeMinioUploadImpl implements QrCodeUpload {
             );
 
             // 업로드된 QR 코드 이미지의 URL을 반환
-            return minioProperties.getEndpoint() + "/" + minioProperties.getBucketName() + "/"
+            return minioProperties.getPrefix() + "/" + minioProperties.getBucketName() + "/"
                     + fileName;
 
         } catch (Exception e) {
