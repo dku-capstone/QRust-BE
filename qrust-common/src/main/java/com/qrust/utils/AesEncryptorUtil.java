@@ -1,13 +1,13 @@
 package com.qrust.utils;
 
+import java.security.SecureRandom;
+import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
-import java.security.SecureRandom;
 
-public class AesUtil {
+public class AesEncryptorUtil extends QrCodeEncryptorUtil {
 
     private static final String AES = "AES";
     private static final String AES_GCM_NO_PADDING = "AES/GCM/NoPadding";
@@ -16,11 +16,12 @@ public class AesUtil {
 
     private final SecretKey secretKey;
 
-    public AesUtil(String base64Key) {
+    public AesEncryptorUtil(String base64Key) {
         byte[] keyBytes = Base64.getDecoder().decode(base64Key);
         this.secretKey = new SecretKeySpec(keyBytes, AES);
     }
 
+    @Override
     public String encrypt(String plaintext) {
         try {
             byte[] iv = new byte[IV_SIZE];
@@ -41,6 +42,7 @@ public class AesUtil {
         }
     }
 
+    @Override
     public String decrypt(String encryptedBase64) {
         try {
             byte[] combined = Base64.getDecoder().decode(encryptedBase64);

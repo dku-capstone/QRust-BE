@@ -8,8 +8,8 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.qrust.qrcode.domain.service.QrCodeDecoder;
-import com.qrust.utils.AesUtil;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
+import com.qrust.utils.QrCodeEncryptorUtil;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import javax.imageio.ImageIO;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class QrCodeDecoderImpl implements QrCodeDecoder {
 
     private final ObjectMapper objectMapper;
-    private final AesUtil aesUtil;
+    private final QrCodeEncryptorUtil qrCodeEncryptorUtil;
 
     @Override
     public QrCodeData decodeQrCodeData(byte[] qrCodeImageBytes) {
@@ -37,7 +37,7 @@ public class QrCodeDecoderImpl implements QrCodeDecoder {
             Result result = new MultiFormatReader().decode(bitmap);
 
             //3. AES 복호화
-            String decryptedJson = aesUtil.decrypt(result.getText());
+            String decryptedJson = qrCodeEncryptorUtil.decrypt(result.getText());
 
             // 4. 결과 문자열(JSON) → QrCodeData 객체로 역직렬화
             return objectMapper.readValue(decryptedJson, QrCodeData.class);
