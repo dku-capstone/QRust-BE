@@ -1,7 +1,7 @@
 package com.qrust.utils;
 
 import static com.qrust.exception.qrcode.ErrorMessages.FAIL_AES_DECRYPT_QR;
-import static com.qrust.exception.qrcode.ErrorMessages.FAIL__AES_ENCRYPT_QR;
+import static com.qrust.exception.qrcode.ErrorMessages.FAIL_AES_ENCRYPT_QR;
 import static com.qrust.exception.qrcode.ErrorMessages.KEY_NOT_VALID;
 
 import com.qrust.exception.CustomException;
@@ -51,7 +51,7 @@ public class AesEncryptorUtil extends QrCodeEncryptorUtil {
 
             return Base64.getEncoder().encodeToString(combined);
         } catch (Exception e) {
-            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, FAIL__AES_ENCRYPT_QR);
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, FAIL_AES_ENCRYPT_QR);
         }
     }
 
