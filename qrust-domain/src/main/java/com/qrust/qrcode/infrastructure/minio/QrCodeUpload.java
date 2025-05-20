@@ -1,7 +1,6 @@
 package com.qrust.qrcode.infrastructure.minio;
 
 import com.qrust.common.infrastructure.s3.MinioProperties;
-import com.qrust.qrcode.domain.service.QrCodeUpload;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import java.io.ByteArrayInputStream;
@@ -11,12 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class QrCodeMinioUploadImpl implements QrCodeUpload {
+public class QrCodeUpload {
 
     private final MinioProperties minioProperties;
     private final MinioClient minioClient;
 
-    @Override
     public String uploadQrCodeImage(byte[] qrCodeBytes) {
         try {
             // QR 코드 이미지의 파일 이름 생성
