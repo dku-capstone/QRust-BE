@@ -1,5 +1,9 @@
 package com.qrust.utils;
 
+import static com.qrust.exception.auth.ErrorMessages.KEY_NOT_VALID;
+
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import java.security.SecureRandom;
 import java.util.Base64;
 import javax.crypto.Cipher;
@@ -18,7 +22,14 @@ public class AesEncryptorUtil extends QrCodeEncryptorUtil {
 
     public AesEncryptorUtil(String base64Key) {
         byte[] keyBytes = Base64.getDecoder().decode(base64Key);
+        validateKeySize(keyBytes.length);
         this.secretKey = new SecretKeySpec(keyBytes, AES);
+    }
+
+    private void validateKeySize(int length) {
+        if (length != 16 && length != 24 && length != 32) {
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, KEY_NOT_VALID + "key 길이: " + length);
+        }
     }
 
     @Override

@@ -6,4 +6,5 @@ public class ErrorMessages {
     public static final String EMPTY_USER = "로그인이 필요합니다.";
     public static final String WITHDRAW_USER = "탈퇴한 유저입니다.";
     public static final String INVALID_PW = "유효하지 않은 패스워드 입니다.";
+    public static final String KEY_NOT_VALID = "유효하지 않은 키입니다.";
 }
