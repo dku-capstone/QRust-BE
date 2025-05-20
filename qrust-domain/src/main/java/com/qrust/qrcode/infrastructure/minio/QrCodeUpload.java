@@ -1,6 +1,10 @@
 package com.qrust.qrcode.infrastructure.minio;
 
+import static com.qrust.exception.qrcode.ErrorMessages.IMAGE_UPLOAD_FAIL;
+
 import com.qrust.common.infrastructure.s3.MinioProperties;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import java.io.ByteArrayInputStream;
@@ -35,7 +39,7 @@ public class QrCodeUpload {
                     + fileName;
 
         } catch (Exception e) {
-            throw new RuntimeException("QR 코드 이미지 업로드 실패", e);
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, IMAGE_UPLOAD_FAIL);
         }
     }
 }

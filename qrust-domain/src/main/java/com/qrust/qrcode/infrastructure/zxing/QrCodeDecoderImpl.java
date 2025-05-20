@@ -1,5 +1,7 @@
 package com.qrust.qrcode.infrastructure.zxing;
 
+import static com.qrust.exception.qrcode.ErrorMessages.FAIL_DECRYPT_QR;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
@@ -7,6 +9,8 @@ import com.google.zxing.MultiFormatReader;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import com.qrust.qrcode.domain.service.QrCodeDecoder;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 import com.qrust.utils.QrCodeEncryptorUtil;
@@ -43,7 +47,7 @@ public class QrCodeDecoderImpl implements QrCodeDecoder {
             return objectMapper.readValue(decryptedJson, QrCodeData.class);
 
         } catch (Exception e) {
-            throw new RuntimeException("QR 디코딩 실패", e);
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, FAIL_DECRYPT_QR);
         }
     }
 }
