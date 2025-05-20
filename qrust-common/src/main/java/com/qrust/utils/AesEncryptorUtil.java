@@ -1,6 +1,6 @@
 package com.qrust.utils;
 
-import static com.qrust.exception.auth.ErrorMessages.KEY_NOT_VALID;
+import static com.qrust.exception.qrcode.ErrorMessages.KEY_NOT_VALID;
 
 import com.qrust.exception.CustomException;
 import com.qrust.exception.error.ErrorCode;
@@ -28,7 +28,7 @@ public class AesEncryptorUtil extends QrCodeEncryptorUtil {
 
     private void validateKeySize(int length) {
         if (length != 16 && length != 24 && length != 32) {
-            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, KEY_NOT_VALID + "key 길이: " + length);
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, KEY_NOT_VALID + " [key 길이]: " + length);
         }
     }
 
