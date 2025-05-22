@@ -1,13 +1,17 @@
 package com.qrust.qrcode.infrastructure.zxing;
 
+import static com.qrust.exception.qrcode.ErrorMessages.FAIL_CREATE_QR;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import com.qrust.qrcode.domain.service.QrCodeGenerator;
-import com.qrust.utils.AesUtil;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
+import com.qrust.utils.QrCodeEncryptorUtil;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import javax.imageio.ImageIO;
@@ -19,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class QrCodeGeneratorImpl implements QrCodeGenerator {
 
     private final ObjectMapper objectMapper;
-    private final AesUtil aesUtil;
+    private final QrCodeEncryptorUtil qrCodeEncryptorUtil;
 
     public static final int QR_WIDTH = 300;
     public static final int QR_HEIGHT = 300;
@@ -37,7 +41,7 @@ public class QrCodeGeneratorImpl implements QrCodeGenerator {
             String jsonQrCodeData = objectMapper.writeValueAsString(qrCodeData);
 
             // AES 암호화
-            String encryptedJsonQrCodeData = aesUtil.encrypt(jsonQrCodeData);
+            String encryptedJsonQrCodeData = qrCodeEncryptorUtil.encrypt(jsonQrCodeData);
 
             //QR 코드 데이터를 QR 코드로 변환 (300 x 300 크기)
             BitMatrix qrMatrix = new QRCodeWriter().encode(encryptedJsonQrCodeData, BarcodeFormat.QR_CODE, QR_WIDTH, QR_HEIGHT);
@@ -54,7 +58,7 @@ public class QrCodeGeneratorImpl implements QrCodeGenerator {
             return out.toByteArray();
 
         } catch (Exception e) {
-            throw new RuntimeException("QR 생성 실패", e);
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, FAIL_CREATE_QR);
         }
     }
 }

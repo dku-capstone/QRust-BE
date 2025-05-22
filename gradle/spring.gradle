@@ -26,4 +26,7 @@ dependencies {
 
     // feign client
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    // AOP
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 }

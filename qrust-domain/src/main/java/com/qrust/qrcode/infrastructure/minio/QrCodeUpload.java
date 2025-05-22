@@ -1,7 +1,10 @@
 package com.qrust.qrcode.infrastructure.minio;
 
+import static com.qrust.exception.qrcode.ErrorMessages.IMAGE_UPLOAD_FAIL;
+
 import com.qrust.common.infrastructure.s3.MinioProperties;
-import com.qrust.qrcode.domain.service.QrCodeUpload;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import java.io.ByteArrayInputStream;
@@ -11,12 +14,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class QrCodeMinioUploadImpl implements QrCodeUpload {
+public class QrCodeUpload {
 
     private final MinioProperties minioProperties;
     private final MinioClient minioClient;
 
-    @Override
     public String uploadQrCodeImage(byte[] qrCodeBytes) {
         try {
             // QR 코드 이미지의 파일 이름 생성
@@ -37,7 +39,7 @@ public class QrCodeMinioUploadImpl implements QrCodeUpload {
                     + fileName;
 
         } catch (Exception e) {
-            throw new RuntimeException("QR 코드 이미지 업로드 실패", e);
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, IMAGE_UPLOAD_FAIL);
         }
     }
 }

@@ -1,6 +1,10 @@
 package com.qrust.qrcode.application;
 
+import static com.qrust.exception.qrcode.ErrorMessages.QR_NOT_FOUND;
+
 import com.qrust.dto.PageResponse;
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
 import com.qrust.qrcode.domain.entity.QrCode;
 import com.qrust.qrcode.domain.repository.QrCodeQueryRepository;
 import com.qrust.qrcode.domain.repository.QrCodeRepository;
@@ -36,10 +40,8 @@ public class QrCodeQueryService {
 
     public QrCodeResponseDto getQrCode(Long id) {
 
-        //TODO
-        // 커스텀 예외 처리
         QrCode qrCode = qrCodeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("QR 코드를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_END_POINT, QR_NOT_FOUND));
 
         return new QrCodeResponseDto(
                 qrCode.getId(),

@@ -1,6 +1,10 @@
 package com.qrust.common.config;
 
-import com.qrust.utils.AesUtil;
+import static com.qrust.exception.qrcode.ErrorMessages.INVALID_SECRET_KEY;
+
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
+import com.qrust.utils.AesEncryptorUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +17,10 @@ public class AesEncryptorConfig {
     private String base64Key;
 
     @Bean
-    public AesUtil aesEncryptor() {
+    public AesEncryptorUtil aesEncryptor() {
         if (!StringUtils.hasText(base64Key)) {
-            throw new IllegalStateException("필수 환경 변수 'CRYPTO_AES_KEY'가 설정되지 않았거나 비어 있습니다.");
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, INVALID_SECRET_KEY);
         }
-        return new AesUtil(base64Key);
+        return new AesEncryptorUtil(base64Key);
     }
 }

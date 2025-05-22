@@ -6,21 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.qrust.qrcode.domain.entity.vo.QrCodeData;
 import com.qrust.qrcode.infrastructure.QrCodeTestTemplate;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @Tag("minio")
-class QrCodeMinioUploadImplTest extends QrCodeTestTemplate {
+class QrCodeUploadTest extends QrCodeTestTemplate {
 
     @Autowired
-    private QrCodeMinioUploadImpl qrCodeUploader;
+    private QrCodeUpload qrCodeUploader;
 
     @Test
     void generateQrCodeAndUploadToMinio() throws IOException {

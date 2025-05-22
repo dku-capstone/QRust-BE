@@ -1,13 +1,19 @@
 package com.qrust.utils;
 
+import static com.qrust.exception.qrcode.ErrorMessages.FAIL_AES_DECRYPT_QR;
+import static com.qrust.exception.qrcode.ErrorMessages.FAIL_AES_ENCRYPT_QR;
+import static com.qrust.exception.qrcode.ErrorMessages.KEY_NOT_VALID;
+
+import com.qrust.exception.CustomException;
+import com.qrust.exception.error.ErrorCode;
+import java.security.SecureRandom;
+import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
-import java.security.SecureRandom;
 
-public class AesUtil {
+public class AesEncryptorUtil extends QrCodeEncryptorUtil {
 
     private static final String AES = "AES";
     private static final String AES_GCM_NO_PADDING = "AES/GCM/NoPadding";
@@ -16,11 +22,19 @@ public class AesUtil {
 
     private final SecretKey secretKey;
 
-    public AesUtil(String base64Key) {
+    public AesEncryptorUtil(String base64Key) {
         byte[] keyBytes = Base64.getDecoder().decode(base64Key);
+        validateKeySize(keyBytes.length);
         this.secretKey = new SecretKeySpec(keyBytes, AES);
     }
 
+    private void validateKeySize(int length) {
+        if (length != 16 && length != 24 && length != 32) {
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, KEY_NOT_VALID + " [key 길이]: " + length);
+        }
+    }
+
+    @Override
     public String encrypt(String plaintext) {
         try {
             byte[] iv = new byte[IV_SIZE];
@@ -37,10 +51,11 @@ public class AesUtil {
 
             return Base64.getEncoder().encodeToString(combined);
         } catch (Exception e) {
-            throw new RuntimeException("AES 암호화 실패", e);
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, FAIL_AES_ENCRYPT_QR);
         }
     }
 
+    @Override
     public String decrypt(String encryptedBase64) {
         try {
             byte[] combined = Base64.getDecoder().decode(encryptedBase64);
@@ -57,7 +72,7 @@ public class AesUtil {
             byte[] decrypted = cipher.doFinal(cipherText);
             return new String(decrypted);
         } catch (Exception e) {
-            throw new RuntimeException("AES 복호화 실패", e);
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, FAIL_AES_DECRYPT_QR);
         }
     }
 }
