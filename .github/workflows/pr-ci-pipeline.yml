@@ -33,4 +33,4 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew clean test bootJar -DexcludeTags=minio
+          ./gradlew clean test bootJar
