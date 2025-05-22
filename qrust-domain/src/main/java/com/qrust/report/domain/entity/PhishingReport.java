@@ -37,7 +37,7 @@ public class PhishingReport extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "url_id", nullable = false)
-    private ReportedUrl reportedUrl;
+    private ReportUrl reportUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "report_type", nullable = false)
