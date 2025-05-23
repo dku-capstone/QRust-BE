@@ -15,9 +15,9 @@ public class ReportFacade {
     private final ReportUrlService reportUrlService;
 
     @Transactional
-    public void upsertReport(PhishingReportUpsertRequest request) {
+    public void upsertReport(PhishingReportUpsertRequest request, Long userId) {
         ReportUrl reportUrl = reportUrlService.upsert(request.url());
         reportUrlService.increaseReportCount(request.url());
-        phishingReportService.save(request, reportUrl);
+        phishingReportService.save(request, reportUrl, userId);
     }
 }

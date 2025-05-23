@@ -14,8 +14,8 @@ public class PhishingReportService {
     private final PhishingReportRepository phishingReportRepository;
 
     @Transactional
-    public void save(PhishingReportUpsertRequest request, ReportUrl reportUrl) {
-        PhishingReport report = PhishingReport.of(request, reportUrl);
+    public void save(PhishingReportUpsertRequest request, ReportUrl reportUrl, Long userId) {
+        PhishingReport report = PhishingReport.of(request, reportUrl, userId);
         phishingReportRepository.save(report);
     }
 }

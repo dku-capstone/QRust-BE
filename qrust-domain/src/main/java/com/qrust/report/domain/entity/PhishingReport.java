@@ -3,7 +3,7 @@ package com.qrust.report.domain.entity;
 import com.qrust.common.infrastructure.jpa.shared.BaseEntity;
 import com.qrust.report.domain.entity.vo.ApproveType;
 import com.qrust.report.domain.entity.vo.ReportType;
-import com.qrust.report.dto.PhishingReportRequest;
+import com.qrust.report.dto.PhishingReportUpsertRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -55,9 +55,9 @@ public class PhishingReport extends BaseEntity {
     @Column(name = "approve_type", nullable = false)
     private ApproveType approveType;
 
-    public static PhishingReport of(PhishingReportRequest request, ReportUrl reportUrl) {
+    public static PhishingReport of(PhishingReportUpsertRequest request, ReportUrl reportUrl, Long userId) {
         return PhishingReport.builder()
-                .userId(request.userId())
+                .userId(userId)
                 .reportUrl(reportUrl)
                 .reportType(request.reportType())
                 .reportText(request.reportText())
