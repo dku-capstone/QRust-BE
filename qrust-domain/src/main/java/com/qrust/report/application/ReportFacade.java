@@ -1,5 +1,6 @@
 package com.qrust.report.application;
 
+import com.qrust.report.domain.entity.PhishingReport;
 import com.qrust.report.domain.entity.ReportUrl;
 import com.qrust.report.domain.service.PhishingReportService;
 import com.qrust.report.domain.service.ReportUrlService;
@@ -17,13 +18,13 @@ public class ReportFacade {
     @Transactional
     public void registerReport(PhishingReportUpsertRequest request, Long userId) {
         ReportUrl reportUrl = reportUrlService.upsert(request.url());
-        reportUrlService.increaseReportCount(request.url());
         phishingReportService.save(request, reportUrl, userId);
     }
 
     @Transactional
     public void approveReport(Long reportId) {
-        phishingReportService.approveReport(reportId);
+        PhishingReport report = phishingReportService.approveReport(reportId);
+        reportUrlService.increaseReportCount(report.getReportUrl().getUrl());
     }
 
     @Transactional

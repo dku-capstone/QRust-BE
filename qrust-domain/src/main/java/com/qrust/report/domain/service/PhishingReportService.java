@@ -25,15 +25,16 @@ public class PhishingReportService {
     }
 
     @Transactional
-    public void approveReport(Long reportId) {
+    public PhishingReport approveReport(Long reportId) {
         PhishingReport report = getById(reportId);
         report.approve();
+        return report;
     }
 
     @Transactional
     public void rejectReport(Long reportId) {
         PhishingReport report = getById(reportId);
-        report.approve();
+        report.reject();
     }
 
     @Transactional(readOnly = true)
