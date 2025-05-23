@@ -7,7 +7,9 @@ import com.qrust.exception.CustomException;
 import com.qrust.report.domain.entity.PhishingReport;
 import com.qrust.report.domain.entity.ReportUrl;
 import com.qrust.report.domain.repository.PhishingReportRepository;
+import com.qrust.report.dto.PhishingReportResponse;
 import com.qrust.report.dto.PhishingReportUpsertRequest;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,20 @@ public class PhishingReportService {
         PhishingReport report = PhishingReport.of(request, reportUrl, userId);
         phishingReportRepository.save(report);
     }
+
+    @Transactional(readOnly = true)
+    public List<PhishingReportResponse> getMyReports(Long userId) {
+        return phishingReportRepository.findAllByUserId(userId).stream()
+                .map(report -> PhishingReportResponse.builder()
+                        .id(report.getId())
+                        .reportType(report.getReportType())
+                        .url(report.getReportUrl().getUrl())
+                        .approveType(report.getApproveType())
+                        .incidentDate(report.getIncidentDate())
+                        .build())
+                .toList();
+    }
+
 
     @Transactional
     public PhishingReport approveReport(Long reportId) {
