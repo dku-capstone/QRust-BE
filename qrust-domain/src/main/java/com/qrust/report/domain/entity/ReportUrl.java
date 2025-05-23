@@ -25,7 +25,7 @@ public class ReportUrl extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "url_address", nullable = false)
+    @Column(name = "url_address", nullable = false,  unique = true)
     private String url;
 
     @Column(name = "report_count", nullable = false)
