@@ -4,10 +4,8 @@ import static com.qrust.exception.error.ErrorCode.INVALID_INPUT_VALUE;
 import static com.qrust.exception.report.ErrorMessages.REPORT_URL_NOT_EXIST;
 
 import com.qrust.exception.CustomException;
-import com.qrust.exception.error.ErrorCode;
 import com.qrust.report.domain.entity.ReportUrl;
 import com.qrust.report.domain.repository.ReportUrlRepository;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
