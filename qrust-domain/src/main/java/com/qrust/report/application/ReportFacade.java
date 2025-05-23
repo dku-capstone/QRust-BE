@@ -20,4 +20,14 @@ public class ReportFacade {
         reportUrlService.increaseReportCount(request.url());
         phishingReportService.save(request, reportUrl, userId);
     }
+
+    @Transactional
+    public void approveReport(Long reportId) {
+        phishingReportService.approveReport(reportId);
+    }
+
+    @Transactional
+    public void rejectReport(Long reportId) {
+        phishingReportService.rejectReport(reportId);
+    }
 }
