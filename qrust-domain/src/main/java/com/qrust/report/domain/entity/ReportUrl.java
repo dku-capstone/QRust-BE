@@ -38,7 +38,7 @@ public class ReportUrl extends BaseEntity {
     public static ReportUrl from(String url) {
         return ReportUrl.builder()
                 .url(url)
-                .reportCount(1)
+                .reportCount(0)
                 .build();
     }
 }
