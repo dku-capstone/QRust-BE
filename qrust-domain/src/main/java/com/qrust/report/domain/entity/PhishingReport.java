@@ -1,6 +1,10 @@
 package com.qrust.report.domain.entity;
 
+import static com.qrust.exception.error.ErrorCode.INVALID_INPUT_VALUE;
+import static com.qrust.exception.report.ErrorMessages.REPORT_ALREADY_PROCESSED;
+
 import com.qrust.common.infrastructure.jpa.shared.BaseEntity;
+import com.qrust.exception.CustomException;
 import com.qrust.report.domain.entity.vo.ApproveType;
 import com.qrust.report.domain.entity.vo.ReportType;
 import com.qrust.report.dto.PhishingReportUpsertRequest;
@@ -64,5 +68,19 @@ public class PhishingReport extends BaseEntity {
                 .incidentDate(request.incidentDate())
                 .approveType(ApproveType.PENDING)
                 .build();
+    }
+
+    public void approve() {
+        if (this.approveType != ApproveType.PENDING) {
+            throw new CustomException(INVALID_INPUT_VALUE, REPORT_ALREADY_PROCESSED);
+        }
+        this.approveType = ApproveType.APPROVED;
+    }
+
+    public void reject() {
+        if (this.approveType != ApproveType.PENDING) {
+            throw new CustomException(INVALID_INPUT_VALUE, REPORT_ALREADY_PROCESSED);
+        }
+        this.approveType = ApproveType.REJECTED;
     }
 }
