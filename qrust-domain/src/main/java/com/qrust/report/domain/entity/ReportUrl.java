@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "reported_url")
+@Table(name = "report_url")
 @Getter
 @SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

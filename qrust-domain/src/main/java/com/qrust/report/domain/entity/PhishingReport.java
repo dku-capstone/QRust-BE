@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "phising_report")
+@Table(name = "phishing_report")
 @Getter
 @SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -43,7 +43,7 @@ public class PhishingReport extends BaseEntity {
     @Column(name = "report_type", nullable = false)
     private ReportType reportType;
 
-    @Column(name = "report_text", nullable = false, columnDefinition = "varchar(65535)")
+    @Column(name = "report_text", nullable = false)
     private String reportText;
 
     @Enumerated(EnumType.STRING)
