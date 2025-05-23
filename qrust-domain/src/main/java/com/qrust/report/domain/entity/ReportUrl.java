@@ -30,4 +30,15 @@ public class ReportUrl extends BaseEntity {
 
     @Column(name = "report_count", nullable = false)
     private int reportCount;
+
+    public void incrementReportCount() {
+        this.reportCount++;
+    }
+
+    public static ReportUrl from(String url) {
+        return ReportUrl.builder()
+                .url(url)
+                .reportCount(1)
+                .build();
+    }
 }
