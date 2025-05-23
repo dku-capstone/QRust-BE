@@ -4,6 +4,7 @@ import com.qrust.report.domain.entity.PhishingReport;
 import com.qrust.report.domain.entity.ReportUrl;
 import com.qrust.report.domain.service.PhishingReportService;
 import com.qrust.report.domain.service.ReportUrlService;
+import com.qrust.report.dto.PhishingReportDetailResponse;
 import com.qrust.report.dto.PhishingReportResponse;
 import com.qrust.report.dto.PhishingReportUpsertRequest;
 import java.util.List;
@@ -28,6 +29,10 @@ public class ReportFacade {
         return phishingReportService.getMyReports(userId);
     }
 
+    @Transactional(readOnly = true)
+    public PhishingReportDetailResponse getReportDetail(Long reportId, Long userId) {
+        return phishingReportService.getReportDetail(reportId, userId);
+    }
 
     @Transactional
     public void approveReport(Long reportId) {

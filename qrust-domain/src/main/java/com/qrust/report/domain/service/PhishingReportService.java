@@ -7,6 +7,7 @@ import com.qrust.exception.CustomException;
 import com.qrust.report.domain.entity.PhishingReport;
 import com.qrust.report.domain.entity.ReportUrl;
 import com.qrust.report.domain.repository.PhishingReportRepository;
+import com.qrust.report.dto.PhishingReportDetailResponse;
 import com.qrust.report.dto.PhishingReportResponse;
 import com.qrust.report.dto.PhishingReportUpsertRequest;
 import java.util.List;
@@ -39,6 +40,20 @@ public class PhishingReportService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public PhishingReportDetailResponse getReportDetail(Long reportId, Long userId) {
+        PhishingReport report = phishingReportRepository.findByIdAndUserId(reportId, userId)
+                .orElseThrow(() -> new CustomException(INVALID_INPUT_VALUE, REPORT_NOT_EXIST));
+
+        return PhishingReportDetailResponse.builder()
+                .id(report.getId())
+                .url(report.getReportUrl().getUrl())
+                .reportType(report.getReportType())
+                .reportText(report.getReportText())
+                .incidentDate(report.getIncidentDate())
+                .approveType(report.getApproveType())
+                .build();
+    }
 
     @Transactional
     public PhishingReport approveReport(Long reportId) {
