@@ -18,6 +18,6 @@ public interface ReportControllerSpec {
     @PostMapping("/register")
     ApiResponse<Boolean> registerReport(
             @Parameter(description = "피싱 신고 정보") @RequestBody PhishingReportUpsertRequest request,
-            @Parameter(description = "사용자 ID") @LoginUser Long userId
+            @LoginUser Long userId
     );
 }
