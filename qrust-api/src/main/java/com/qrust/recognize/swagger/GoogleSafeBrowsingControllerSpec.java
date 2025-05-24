@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "QR Recognize Service", description = "안전한 QR 인식")
 @RequestMapping("/api/v1/recognize")
@@ -16,6 +15,6 @@ public interface GoogleSafeBrowsingControllerSpec {
     @PostMapping("/blacklist")
     ApiResponse<Boolean> checkUrl(
             @Parameter(description = "확인할 URL", example = "http://example.com")
-            @RequestParam String url
+            String url
     );
 }

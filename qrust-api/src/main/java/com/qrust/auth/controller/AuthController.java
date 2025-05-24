@@ -8,6 +8,7 @@ import com.qrust.dto.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,13 +17,13 @@ public class AuthController implements AuthControllerSpec {
     private final AuthFacade authFacade;
 
     @Override
-    public ApiResponse<Boolean> signup(SignUpRequest request) {
+    public ApiResponse<Boolean> signup(@RequestBody SignUpRequest request) {
         authFacade.signUp(request);
         return ApiResponse.ok(true);
     }
 
     @Override
-    public ApiResponse<Boolean> login(LoginRequest request, HttpServletResponse response) {
+    public ApiResponse<Boolean> login(@RequestBody LoginRequest request, HttpServletResponse response) {
         authFacade.login(request, response);
         return ApiResponse.ok(true);
     }

@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,9 +26,23 @@ public class ReportUrl extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "url_address", nullable = false)
+    @Column(name = "url_address", nullable = false, unique = true)
     private String url;
 
     @Column(name = "report_count", nullable = false)
     private int reportCount;
+
+    @Version
+    private Long version;
+
+    public void incrementReportCount() {
+        this.reportCount++;
+    }
+
+    public static ReportUrl from(String url) {
+        return ReportUrl.builder()
+                .url(url)
+                .reportCount(0)
+                .build();
+    }
 }
