@@ -20,14 +20,14 @@ public interface AuthControllerSpec {
     @PostMapping("/signup")
     ApiResponse<Boolean> signup(
             @Parameter(description = "회원가입 정보")
-            @RequestBody SignUpRequest request
+            SignUpRequest request
     );
 
     @Operation(summary = "로그인", description = "로그인")
     @PostMapping("/login")
     ApiResponse<Boolean> login(
             @Parameter(description = "로그인 정보")
-            @RequestBody LoginRequest request,
+            LoginRequest request,
             HttpServletResponse response
     );
 

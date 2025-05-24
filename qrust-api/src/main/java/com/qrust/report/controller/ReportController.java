@@ -9,6 +9,8 @@ import com.qrust.report.dto.PhishingReportUpsertRequest;
 import com.qrust.report.swagger.ReportControllerSpec;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,7 +20,8 @@ public class ReportController implements ReportControllerSpec {
     private final ReportFacade reportFacade;
 
     @Override
-    public ApiResponse<Boolean> registerReport(PhishingReportUpsertRequest request, Long userId) {
+    public ApiResponse<Boolean> registerReport(@RequestBody PhishingReportUpsertRequest request,
+                                               @LoginUser Long userId) {
         reportFacade.registerReport(request, userId);
         return ApiResponse.ok(true);
     }
@@ -29,7 +32,8 @@ public class ReportController implements ReportControllerSpec {
     }
 
     @Override
-    public ApiResponse<PhishingReportDetailResponse> getReportDetail(Long reportId, Long userId) {
+    public ApiResponse<PhishingReportDetailResponse> getReportDetail(@PathVariable Long reportId,
+                                                                     @LoginUser Long userId) {
         return ApiResponse.ok(reportFacade.getReportDetail(reportId, userId));
     }
 }
