@@ -33,7 +33,8 @@ public class QrCodeQueryService {
                         qrCode.getQrCodeImage().getImageUrl(),
                         qrCode.getQrCodeData().getTitle(),
                         qrCode.getCreatedAt().toLocalDate(),
-                        qrCode.getQrCodeData().getUrl()
+                        qrCode.getQrCodeData().getUrl(),
+                        qrCode.getQrCodeStatus()
                 ));
         return PageResponse.from(result);
     }
