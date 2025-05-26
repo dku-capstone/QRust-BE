@@ -1,6 +1,7 @@
 package com.qrust.report.domain.service;
 
 import static com.qrust.exception.error.ErrorCode.INVALID_INPUT_VALUE;
+import static com.qrust.exception.report.ErrorMessages.REPORT_ALREADY_EXISTS;
 import static com.qrust.exception.report.ErrorMessages.REPORT_NOT_EXIST;
 
 import com.qrust.exception.CustomException;
@@ -23,6 +24,10 @@ public class PhishingReportService {
 
     @Transactional
     public void save(PhishingReportUpsertRequest request, ReportUrl reportUrl, Long userId) {
+        if (phishingReportRepository.existsByUserIdAndReportUrl(userId, reportUrl)) {
+            throw new CustomException(INVALID_INPUT_VALUE, REPORT_ALREADY_EXISTS);
+        }
+
         PhishingReport report = PhishingReport.of(request, reportUrl, userId);
         phishingReportRepository.save(report);
     }
