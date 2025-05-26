@@ -17,7 +17,7 @@ public class QrRecognizeController implements QrRecognizeControllerSpec {
     private final RecognizeFacade recognizeFacade;
 
     @PostMapping("/verify")
-    public ApiResponse<QrCodeVerificationResponse> verifyQr(@RequestBody byte[] qrCodeImageBytes) {
-        return ApiResponse.ok(recognizeFacade.verifyQr(qrCodeImageBytes));
+    public ApiResponse<QrCodeVerificationResponse> verifyQr(@RequestBody String encryptedQrCodeData) {
+        return ApiResponse.ok(recognizeFacade.verifyQr(encryptedQrCodeData));
     }
 }

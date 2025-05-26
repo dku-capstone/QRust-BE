@@ -24,6 +24,6 @@ public interface QrRecognizeControllerSpec {
     @PostMapping("/verify")
     ApiResponse<QrCodeVerificationResponse> verifyQr(
             @Parameter(description = "QR 이미지 바이트 배열 (Base64 또는 Binary 전송)", required = true)
-            @RequestBody byte[] qrCodeImageBytes
+            @RequestBody String encryptedQrCodeData
     );
 }

@@ -21,9 +21,9 @@ public class RecognizeFacade {
     private final UrlRecognizeFacade urlRecognizeFacade;
     private final AiModelUrlVerifyService aiModelUrlVerifyService;
 
-    public QrCodeVerificationResponse verifyQr(byte[] qrCodeImageBytes) {
+    public QrCodeVerificationResponse verifyQr(String encryptedQrCodeData) {
         try {
-            QrCodeData data = qrCodeDecoder.decodeQrCodeData(qrCodeImageBytes);  // ✅ 복호화 성공 여부로 판단
+            QrCodeData data = qrCodeDecoder.decodeQrCodeData(encryptedQrCodeData);  // ✅ 복호화 성공 여부로 판단
             String url = data.getUrl();
             String domain = extractDomain(url);
 
@@ -33,7 +33,7 @@ public class RecognizeFacade {
         } catch (Exception decodeException) {
             // 🔽 복호화 실패 → 비신뢰 QR → 3단계 검증
             try {
-                String extractedText = recognizeService.decodeQrToRawText(qrCodeImageBytes);
+                String extractedText = encryptedQrCodeData;
                 String domain = extractDomain(extractedText);
 
                 // 1. Google Safe Browsing
