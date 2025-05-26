@@ -1,5 +1,12 @@
 package com.qrust.external.google.application;
 
+import static com.qrust.exception.error.ErrorCode.INVALID_INPUT_VALUE;
+import static com.qrust.exception.external.google.ErrorMessages.GOOGLE_API_FAILED;
+import static com.qrust.exception.external.google.ErrorMessages.GOOGLE_URL_EMPTY;
+import static com.qrust.exception.external.google.ErrorMessages.GOOGLE_URL_INVALID;
+import static com.qrust.exception.report.ErrorMessages.REPORT_URL_INVALID;
+
+import com.qrust.exception.CustomException;
 import com.qrust.external.google.application.dto.request.GoogleSafeBrowsingRequest;
 import com.qrust.external.google.application.dto.response.GoogleSafeBrowsingResponse;
 import com.qrust.external.google.infrastructure.GoogleSafeBrowsingFeignClient;
@@ -25,14 +32,14 @@ public class GoogleSafeBrowsingService {
     public boolean isUrlDangerous(String url) {
         if (url == null || url.isEmpty()) {
             log.warn("입력된 URL이 비어 있습니다.");
-            throw new IllegalArgumentException("URL이 비어 있습니다.");
+            throw new CustomException(INVALID_INPUT_VALUE, GOOGLE_URL_EMPTY);
         }
 
         String normalizedUrl = normalizeUrl(url);
 
         if (!isValidUrl(normalizedUrl)) {
             log.warn("유효하지 않은 URL 형식: {}", url);
-            throw new IllegalArgumentException("유효하지 않은 URL 형식입니다.");
+            throw new CustomException(INVALID_INPUT_VALUE, GOOGLE_URL_INVALID);
         }
 
         try {
@@ -41,7 +48,7 @@ public class GoogleSafeBrowsingService {
             return hasThreatMatches(response);
         } catch (Exception e) {
             log.error("Google Safe Browsing API 호출 중 오류 발생: {}", e.getMessage(), e);
-            throw new RuntimeException("URL 검사 중 오류 발생", e);
+            throw new CustomException(INVALID_INPUT_VALUE, GOOGLE_API_FAILED);
         }
     }
 
