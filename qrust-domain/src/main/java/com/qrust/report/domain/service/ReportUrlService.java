@@ -23,7 +23,7 @@ public class ReportUrlService {
     public ReportUrl upsert(String url) {
         String domain = extractDomain(url);
         return findByUrl(domain)
-                .orElseGet(() -> reportUrlRepository.save(ReportUrl.from(url)));
+                .orElseGet(() -> reportUrlRepository.save(ReportUrl.from(domain)));
     }
 
     @Transactional
