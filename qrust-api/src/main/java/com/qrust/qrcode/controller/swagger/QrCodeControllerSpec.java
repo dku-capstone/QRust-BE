@@ -1,5 +1,6 @@
 package com.qrust.qrcode.controller.swagger;
 
+import com.qrust.annotation.user.LoginUser;
 import com.qrust.dto.ApiResponse;
 import com.qrust.dto.PageResponse;
 import com.qrust.qrcode.dto.request.QrCodeGenerateRequestDto;
@@ -30,7 +31,7 @@ public interface QrCodeControllerSpec {
 
     @Operation(summary = "QR 코드 목록 조회 (사용자별)")
     ApiResponse<PageResponse<QrCodeListResponseDto>> getAllQrCodes(
-            @Parameter(description = "사용자 ID") Long userId,
+            @Parameter(hidden=true) @LoginUser Long userId,
             @Parameter(description = "페이지 번호", example = "0") int page,
             @Parameter(description = "페이지 크기", example = "10") int size);
 

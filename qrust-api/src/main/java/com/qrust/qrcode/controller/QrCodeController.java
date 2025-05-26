@@ -43,9 +43,9 @@ public class QrCodeController implements QrCodeControllerSpec {
 
 
     // 목록 조회(페이징)
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user")
     public ApiResponse<PageResponse<QrCodeListResponseDto>> getAllQrCodes(
-            @PathVariable(name = "userId") Long userId,
+            @LoginUser Long userId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
