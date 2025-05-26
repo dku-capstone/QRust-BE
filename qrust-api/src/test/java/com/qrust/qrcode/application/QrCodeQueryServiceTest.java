@@ -99,7 +99,8 @@ class QrCodeQueryServiceTest {
                 "https://cdn.qrust.com/qr.png",
                 "테스트 결과",
                 LocalDate.of(2025, 3, 20),
-                "https://example.com"
+                "https://example.com",
+                QrCodeStatus.ACTIVE
         );
 
         when(qrCodeQueryRepository.searchQrCode(dto, pageable))
