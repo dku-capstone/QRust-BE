@@ -43,7 +43,7 @@ public class ReportUrlService {
                 .orElseThrow(() -> new CustomException(INVALID_INPUT_VALUE, REPORT_URL_NOT_EXIST));
     }
 
-    private String extractDomain(String fullUrl) {
+    public String extractDomain(String fullUrl) {
         try {
             if (!fullUrl.startsWith("http://") && !fullUrl.startsWith("https://")) {
                 fullUrl = "http://" + fullUrl;
