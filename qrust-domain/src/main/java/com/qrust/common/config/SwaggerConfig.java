@@ -26,13 +26,13 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("QRust API")
-                        .description("QRust 프로젝트용 API 문서입니다.")
+                        .description("QRust API")
                         .version("1.0.0")
                 )
                 .servers(List.of(
-                        new Server()
-                                .url("https://localhost:8080")
-                                .description("로컬 테스트용 HTTPS 서버")
-                ));
+                        new Server().url("https://mayfifth99.store").description("운영 서버"),
+                        new Server().url("http://localhost:8080").description("로컬 서버")
+                ))
+                ;
     }
 }
