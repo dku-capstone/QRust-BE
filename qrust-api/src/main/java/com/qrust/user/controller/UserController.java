@@ -19,7 +19,7 @@ public class UserController implements UserControllerSpec {
 
     @Override
     @GetMapping("/info")
-    public ApiResponse<UserResponse> getUserById(@LoginUser Long id) {
+    public ApiResponse<UserResponse> getMyInfo(@LoginUser Long id) {
         return ApiResponse.ok(userFacade.getUserById(id));
     }
 }
