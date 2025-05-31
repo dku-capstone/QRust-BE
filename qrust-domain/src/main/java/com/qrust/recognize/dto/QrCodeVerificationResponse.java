@@ -5,5 +5,6 @@ import com.qrust.recognize.domain.vo.QrCodeVerificationStatus;
 public record QrCodeVerificationResponse(
         QrCodeVerificationStatus status,
         String url,
-        String domain
+        String domain,
+        Integer reportCount
 ) {}
