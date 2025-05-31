@@ -70,7 +70,7 @@ public class RecognizeFacade {
     private String extractDomain(String fullUrl) {
         try {
             if (!fullUrl.startsWith("http://") && !fullUrl.startsWith("https://")) {
-                fullUrl = "http://" + fullUrl;
+                fullUrl = "https://" + fullUrl;
             }
             return new URL(fullUrl).getHost();
         } catch (Exception e) {
