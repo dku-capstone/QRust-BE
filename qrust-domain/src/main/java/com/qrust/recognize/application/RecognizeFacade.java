@@ -8,6 +8,7 @@ import com.qrust.recognize.domain.service.RecognizeService;
 import com.qrust.recognize.domain.vo.QrCodeVerificationStatus;
 import com.qrust.recognize.dto.QrCodeVerificationResponse;
 import com.qrust.report.application.UrlRecognizeFacade;
+import com.qrust.report.dto.PhishingReportBlacklistCheckResponse;
 import java.net.URL;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,7 @@ public class RecognizeFacade {
             String domain = extractDomain(url);
 
             // ✅ 복호화 성공 → 신뢰된 QR로 판단하고 바로 리턴
-            return new QrCodeVerificationResponse(QrCodeVerificationStatus.TRUSTED_QR, url, domain);
+            return new QrCodeVerificationResponse(QrCodeVerificationStatus.TRUSTED_QR, url, domain, null);
 
         } catch (Exception decodeException) {
             // 🔽 복호화 실패 → 비신뢰 QR → 3단계 검증
@@ -39,27 +40,29 @@ public class RecognizeFacade {
                 // 1. Google Safe Browsing
                 if (googleSafeBrowsingService.isUrlDangerous(extractedText)) {
                     return new QrCodeVerificationResponse(QrCodeVerificationStatus.GOOGLE_BLOCKED, extractedText,
-                            domain);
+                            domain, null);
                 }
 
-                // 2. 내부 블랙리스트
-                if (urlRecognizeFacade.checkUrl(extractedText).isBlacklist()) {
+                // 2. 신고 URL
+                PhishingReportBlacklistCheckResponse phishingReportBlacklistCheckResponse = urlRecognizeFacade.checkUrl(
+                        extractedText);
+                if (phishingReportBlacklistCheckResponse.isBlacklist()) {
                     return new QrCodeVerificationResponse(QrCodeVerificationStatus.REPORT_BLACKLISTED, extractedText,
-                            domain);
+                            domain, phishingReportBlacklistCheckResponse.reportCount());
                 }
 
                 // 3. AI 모델 검증
                 int aiResult = aiModelUrlVerifyService.verifyUrl(extractedText);
                 if (aiResult == 1) {
                     return new QrCodeVerificationResponse(QrCodeVerificationStatus.AI_MODEL_BLOCKED, extractedText,
-                            domain);
+                            domain, null);
                 }
 
                 // 통과 시
-                return new QrCodeVerificationResponse(QrCodeVerificationStatus.VERIFIED_SAFE, extractedText, domain);
+                return new QrCodeVerificationResponse(QrCodeVerificationStatus.VERIFIED_SAFE, extractedText, domain, null);
 
             } catch (Exception e) {
-                return new QrCodeVerificationResponse(QrCodeVerificationStatus.INVALID_QR, null, null);
+                return new QrCodeVerificationResponse(QrCodeVerificationStatus.INVALID_QR, null, null, null);
             }
         }
     }
