@@ -46,7 +46,7 @@ public class ReportUrlService {
     public String extractDomain(String fullUrl) {
         try {
             if (!fullUrl.startsWith("http://") && !fullUrl.startsWith("https://")) {
-                fullUrl = "http://" + fullUrl;
+                fullUrl = "https://" + fullUrl;
             }
             URL url = new URL(fullUrl);
             return url.getHost();
